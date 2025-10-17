@@ -50,17 +50,27 @@
 
           <div class="input-group">
             <label for="ems" class="input-label">Ems</label>
-            <div class="input-with-unit">
-              <input 
-                id="ems"
-                v-model.number="ems" 
-                type="number" 
-                class="input input--with-unit input--large"
-                placeholder="1"
-                step="0.01"
-                @input="convertToPixels"
-              />
-              <span class="unit">em</span>
+            <div class="ems-input-container">
+              <div class="input-with-unit">
+                <input 
+                  id="ems"
+                  v-model.number="ems" 
+                  type="number" 
+                  class="input input--with-unit input--large"
+                  placeholder="1"
+                  step="0.01"
+                  @input="convertToPixels"
+                />
+                <span class="unit">em</span>
+              </div>
+              <button 
+                v-if="ems" 
+                @click="copyEms" 
+                class="copy-button copy-button--small"
+                :disabled="!ems"
+              >
+                {{ copied ? 'Copied!' : 'Copy' }}
+              </button>
             </div>
           </div>
         </div>
@@ -104,6 +114,7 @@ import { ref, onMounted } from 'vue'
 const baseSize = ref(16)
 const pixels = ref('')
 const ems = ref('')
+const copied = ref(false)
 
 const commonValues = [
   { px: 8, usage: 'Small spacing' },
@@ -147,6 +158,20 @@ const setValues = (pixelValue) => {
   convertToEm()
 }
 
+const copyEms = async () => {
+  if (!ems.value) return
+  
+  try {
+    await navigator.clipboard.writeText(`${ems.value}em`)
+    copied.value = true
+    setTimeout(() => {
+      copied.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('Failed to copy em value:', err)
+  }
+}
+
 onMounted(() => {
   // Set default values
   pixels.value = 16
@@ -177,6 +202,18 @@ onMounted(() => {
 
 .calculation-display {
   margin-top: 1.5rem;
+}
+
+.ems-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.copy-button--small {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  align-self: flex-start;
 }
 
 .values-table {

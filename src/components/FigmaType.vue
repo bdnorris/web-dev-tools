@@ -212,7 +212,7 @@ const copyCSS = async () => {
   padding: 1rem;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.9rem;
   line-height: 1.5;
   resize: vertical;
