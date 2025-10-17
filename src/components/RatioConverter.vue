@@ -3,7 +3,7 @@
     <div class="tool__header">
       <h2 class="tool__title">Ratio Converter</h2>
       <p class="tool__description">
-        Enter a ratio and convert values proportionally. Input any value on either side to see the proportional result.
+        Enter a ratio and convert values proportionally.
       </p>
     </div>
 
@@ -152,7 +152,7 @@ const calculateFromRatio = () => {
 .conversion-inputs {
   display: flex;
   align-items: end;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -160,7 +160,6 @@ const calculateFromRatio = () => {
   font-size: 2rem;
   color: var(--color-accent);
   font-weight: bold;
-  margin-bottom: 0.5rem;
 }
 
 .calculation-display {

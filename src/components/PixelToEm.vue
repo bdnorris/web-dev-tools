@@ -63,16 +63,16 @@
                 />
                 <span class="unit">em</span>
               </div>
-              <button 
-                v-if="ems" 
-                @click="copyEms" 
-                class="copy-button copy-button--small"
-                :disabled="!ems"
-              >
-                {{ copied ? 'Copied!' : 'Copy' }}
-              </button>
             </div>
           </div>
+          <button 
+            v-if="ems" 
+            @click="copyEms" 
+            class="copy-button copy-button--small"
+            :disabled="!ems"
+          >
+            {{ copied ? 'Copied!' : 'Copy' }}
+          </button>
         </div>
 
         <!-- Calculation Display -->
@@ -189,7 +189,7 @@ onMounted(() => {
 .converter-grid {
   display: flex;
   align-items: end;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -197,7 +197,7 @@ onMounted(() => {
   font-size: 2rem;
   color: var(--color-accent);
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  /* margin-bottom: 0.5rem; */
 }
 
 .calculation-display {
@@ -213,7 +213,7 @@ onMounted(() => {
 .copy-button--small {
   padding: 0.375rem 0.75rem;
   font-size: 0.8rem;
-  align-self: flex-start;
+  /* align-self: flex-start; */
 }
 
 .values-table {

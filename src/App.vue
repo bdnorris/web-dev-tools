@@ -129,8 +129,8 @@ body {
 .menu-toggle {
   display: none;
   position: fixed;
-  top: 1rem;
-  left: 1rem;
+  inset-block-start: 1rem;
+  inset-inline-end: 1rem;
   z-index: 1001;
   background: var(--color-primary);
   border: none;
