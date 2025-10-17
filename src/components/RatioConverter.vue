@@ -18,7 +18,7 @@
               id="ratio-a"
               v-model.number="ratioA" 
               type="number" 
-              class="input"
+              class="input input--small"
               placeholder="3"
               @input="calculateFromRatio"
             />
@@ -30,7 +30,7 @@
               id="ratio-b"
               v-model.number="ratioB" 
               type="number" 
-              class="input"
+              class="input input--small"
               placeholder="4"
               @input="calculateFromRatio"
             />
@@ -68,8 +68,8 @@
         </div>
 
         <!-- Ratio Display -->
-        <div v-if="hasValidRatio" class="ratio-display">
-          <span class="ratio-text">
+        <div v-if="hasValidRatio" class="calculation-display">
+          <span class="calculation__formula">
             Ratio: {{ ratioA }}:{{ ratioB }}
           </span>
           <span class="ratio-decimal">
@@ -129,41 +129,10 @@ const calculateFromRatio = () => {
 </script>
 
 <style scoped>
-.tool {
-  background: var(--color-white);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tool__header {
-  margin-bottom: 2rem;
-}
-
-.tool__title {
-  color: var(--color-primary);
-  margin: 0 0 0.5rem 0;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.tool__description {
-  color: var(--color-text-light);
-  margin: 0;
-  font-size: 1.1rem;
-}
-
 .ratio-converter {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-}
-
-.section-title {
-  color: var(--color-primary);
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  font-weight: 600;
 }
 
 .ratio-inputs {
@@ -171,37 +140,6 @@ const calculateFromRatio = () => {
   align-items: end;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.input-label {
-  font-weight: 500;
-  color: var(--color-text);
-  font-size: 0.9rem;
-}
-
-.input {
-  padding: 0.75rem;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 80px;
-  transition: all 0.3s ease;
-}
-
-.input--large {
-  width: 200px;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
 }
 
 .ratio-separator {
@@ -225,17 +163,8 @@ const calculateFromRatio = () => {
   margin-bottom: 0.5rem;
 }
 
-.ratio-display {
+.calculation-display {
   margin-top: 1rem;
-  padding: 1rem;
-  background: var(--color-background);
-  border-radius: 8px;
-  border-left: 4px solid var(--color-accent);
-}
-
-.ratio-text {
-  font-weight: 600;
-  color: var(--color-primary);
 }
 
 .ratio-decimal {
@@ -246,10 +175,6 @@ const calculateFromRatio = () => {
 }
 
 @media (max-width: 768px) {
-  .tool {
-    padding: 1.5rem;
-  }
-  
   .ratio-inputs {
     justify-content: center;
   }
@@ -262,11 +187,6 @@ const calculateFromRatio = () => {
   
   .conversion-arrow {
     transform: rotate(90deg);
-  }
-  
-  .input--large {
-    width: 100%;
-    max-width: 200px;
   }
 }
 </style>

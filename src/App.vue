@@ -246,4 +246,229 @@ body {
     padding: 2rem 1.5rem;
   }
 }
+
+/* Shared Component Styles */
+.tool {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tool__header {
+  margin-bottom: 2rem;
+}
+
+.tool__title {
+  color: var(--color-primary);
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.tool__description {
+  color: var(--color-text-light);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.section-title {
+  color: var(--color-primary);
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-weight: 500;
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+.input-with-unit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.input {
+  padding: 0.75rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.input--with-unit {
+  padding-right: 3rem;
+}
+
+.input--small {
+  width: 80px;
+}
+
+.input--medium {
+  width: 150px;
+}
+
+.input--large {
+  width: 200px;
+}
+
+.input--full {
+  width: 100%;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
+}
+
+.unit {
+  position: absolute;
+  right: 0.75rem;
+  color: var(--color-text-light);
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* Preview Box Styles */
+.preview-box {
+  background: #f8f9fa;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1em 0 1em 0;
+}
+
+.preview-box__title {
+  margin: 0 0 1em 0;
+  color: var(--color-primary);
+  font-size: 1.1rem;
+}
+
+.code-preview {
+  background: #2d3748;
+  color: #e2e8f0;
+  padding: 1rem;
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.calculation-display {
+  padding: 1rem;
+  background: var(--color-background);
+  border-radius: 8px;
+  border-left: 4px solid var(--color-accent);
+}
+
+.calculation__formula {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 1rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.copy-button {
+  background: var(--color-accent);
+  color: var(--color-white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.copy-button:hover {
+  background: var(--color-secondary);
+}
+
+/* Grid Layouts */
+.inputs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Result Cards */
+.result-card {
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.result-card--primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.result-card--secondary {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.result-card--accent {
+  background: var(--color-accent);
+  color: var(--color-white);
+}
+
+.result-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-bottom: 0.5rem;
+}
+
+.result-value {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.result-description {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+  .tool {
+    padding: 1.5rem;
+  }
+  
+  .inputs-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .input--medium,
+  .input--large {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .code-preview {
+    font-size: 0.8rem;
+  }
+}
 </style>

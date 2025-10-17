@@ -19,7 +19,7 @@
                 id="font-size"
                 v-model.number="fontSize" 
                 type="number" 
-                class="input"
+                class="input input--with-unit input--full"
                 placeholder="16"
                 min="1"
                 @input="calculateLineHeight"
@@ -35,7 +35,7 @@
                 id="line-height-px"
                 v-model.number="lineHeightPx" 
                 type="number" 
-                class="input"
+                class="input input--with-unit input--full"
                 placeholder="24"
                 min="1"
                 @input="calculateLineHeight"
@@ -74,9 +74,9 @@
         </div>
 
         <!-- CSS Preview -->
-        <div class="css-preview">
-          <h4 class="css-title">CSS Code</h4>
-          <div class="css-code">
+        <div class="preview-box">
+          <h4 class="preview-box__title">CSS Code</h4>
+          <div class="code-preview">
             <code>
 font-size: {{ fontSize }}px;<br>
 line-height: {{ decimalLineHeight }}; /* {{ fractionLineHeight }} */
@@ -88,8 +88,8 @@ line-height: {{ decimalLineHeight }}; /* {{ fractionLineHeight }} */
         </div>
 
         <!-- Visual Preview -->
-        <div class="visual-preview">
-          <h4 class="preview-title">Visual Preview</h4>
+        <div class="preview-box">
+          <h4 class="preview-box__title">Visual Preview</h4>
           <div 
             class="preview-text" 
             :style="{ fontSize: fontSize + 'px', lineHeight: decimalLineHeight }"
@@ -193,186 +193,10 @@ const copyCss = async () => {
 </script>
 
 <style scoped>
-.tool {
-  background: var(--color-white);
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.tool__header {
-  margin-bottom: 2rem;
-}
-
-.tool__title {
-  color: var(--color-primary);
-  margin: 0 0 0.5rem 0;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.tool__description {
-  color: var(--color-text-light);
-  margin: 0;
-  font-size: 1.1rem;
-}
-
 .line-height-calculator {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
-}
-
-.section-title {
-  color: var(--color-primary);
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.inputs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.input-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.input-label {
-  font-weight: 500;
-  color: var(--color-text);
-  font-size: 0.9rem;
-}
-
-.input-with-unit {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.input {
-  padding: 0.75rem;
-  padding-right: 3rem;
-  border: 2px solid #e1e5e9;
-  border-radius: 8px;
-  font-size: 1rem;
-  width: 100%;
-  transition: all 0.3s ease;
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
-}
-
-.unit {
-  position: absolute;
-  right: 0.75rem;
-  color: var(--color-text-light);
-  font-weight: 500;
-  pointer-events: none;
-}
-
-.results-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-}
-
-.result-card {
-  padding: 1.5rem;
-  border-radius: 8px;
-  text-align: center;
-}
-
-.result-card--primary {
-  background: var(--color-primary);
-  color: var(--color-white);
-}
-
-.result-card--secondary {
-  background: var(--color-secondary);
-  color: var(--color-white);
-}
-
-.result-card--accent {
-  background: var(--color-accent);
-  color: var(--color-white);
-}
-
-.result-label {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-bottom: 0.5rem;
-}
-
-.result-value {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.result-description {
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.css-preview {
-  background: #f8f9fa;
-  border: 1px solid #e1e5e9;
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.css-title {
-  margin: 0 0 1rem 0;
-  color: var(--color-primary);
-  font-size: 1.1rem;
-}
-
-.css-code {
-  background: #2d3748;
-  color: #e2e8f0;
-  padding: 1rem;
-  border-radius: 6px;
-  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 1rem;
-  overflow-x: auto;
-}
-
-.copy-button {
-  background: var(--color-accent);
-  color: var(--color-white);
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-}
-
-.copy-button:hover {
-  background: var(--color-secondary);
-}
-
-.visual-preview {
-  background: #f8f9fa;
-  border: 1px solid #e1e5e9;
-  border-radius: 8px;
-  padding: 1.5rem;
-}
-
-.preview-title {
-  margin: 0 0 1rem 0;
-  color: var(--color-primary);
-  font-size: 1.1rem;
 }
 
 .preview-text {
@@ -424,24 +248,8 @@ const copyCss = async () => {
 }
 
 @media (max-width: 768px) {
-  .tool {
-    padding: 1.5rem;
-  }
-  
-  .inputs-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .results-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .ratios-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .css-code {
-    font-size: 0.8rem;
   }
 }
 </style>
