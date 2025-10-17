@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import RatioConverter from './components/RatioConverter.vue'
 import PixelToEm from './components/PixelToEm.vue'
 import LineHeightCalculator from './components/LineHeightCalculator.vue'
+import FigmaType from './components/FigmaType.vue'
 
 const currentTool = ref('ratio')
 const menuOpen = ref(false)
@@ -10,7 +11,8 @@ const menuOpen = ref(false)
 const tools = [
   { id: 'ratio', name: 'Ratio Converter', component: RatioConverter },
   { id: 'pixel-em', name: 'Pixel to Em', component: PixelToEm },
-  { id: 'line-height', name: 'Line Height Calculator', component: LineHeightCalculator }
+  { id: 'line-height', name: 'Line Height Calculator', component: LineHeightCalculator },
+  { id: 'figma-type', name: 'Figma Type', component: FigmaType }
 ]
 
 const toggleMenu = () => {
@@ -325,6 +327,7 @@ body {
   position: relative;
   display: inline-flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .input {
@@ -362,10 +365,9 @@ body {
 }
 
 .unit {
-  position: absolute;
-  right: 0.75rem;
   color: var(--color-text-light);
   font-weight: 500;
+  margin-inline-start: 0.75em;
   pointer-events: none;
 }
 
