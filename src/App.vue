@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import RatioConverter from './components/RatioConverter.vue'
 import PixelToEm from './components/PixelToEm.vue'
 import LineHeightCalculator from './components/LineHeightCalculator.vue'
@@ -17,10 +17,40 @@ const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
 }
 
+// Get tool ID from URL hash
+const getToolFromHash = () => {
+  const hash = window.location.hash.substring(1) // Remove the # symbol
+  const validTool = tools.find(tool => tool.id === hash)
+  return validTool ? hash : 'ratio' // Default to 'ratio' if invalid hash
+}
+
+// Update URL hash when tool changes
+const updateHash = (toolId) => {
+  window.location.hash = toolId
+}
+
+// Handle hash changes (back/forward navigation)
+const handleHashChange = () => {
+  const toolId = getToolFromHash()
+  if (toolId !== currentTool.value) {
+    currentTool.value = toolId
+    menuOpen.value = false
+  }
+}
+
 const selectTool = (toolId) => {
   currentTool.value = toolId
   menuOpen.value = false
+  updateHash(toolId)
 }
+
+// Initialize tool from URL hash on load
+onMounted(() => {
+  currentTool.value = getToolFromHash()
+  
+  // Listen for hash changes (back/forward navigation)
+  window.addEventListener('hashchange', handleHashChange)
+})
 </script>
 
 <template>
