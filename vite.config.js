@@ -7,6 +7,9 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@jsquash/webp', '@jsquash/avif']
   },
+  worker: {
+    format: 'es'
+  },
   server: {
     headers: {
       'Cross-Origin-Opener-Policy': 'same-origin',
