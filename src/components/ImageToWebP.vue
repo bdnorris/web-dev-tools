@@ -1,9 +1,9 @@
 <template>
   <div class="tool">
     <div class="tool__header">
-      <h2 class="tool__title">Image to WebP Converter</h2>
+      <h2 class="tool__title">Image Converter</h2>
       <p class="tool__description">
-        Convert JPG and PNG images to WebP format for better compression and faster loading times. Reduce file size by up to 30% without noticeable quality loss.
+        Convert JPG and PNG images to modern WebP or AVIF formats for better compression and faster loading times. Reduce file size by up to 90% without noticeable quality loss.
       </p>
     </div>
 
@@ -47,6 +47,38 @@
         <h3 class="section-title">Conversion Settings</h3>
         <div class="settings-grid">
           <div class="input-group">
+            <label class="input-label">Output Format</label>
+            <div class="format-options">
+              <label class="format-option">
+                <input 
+                  type="radio" 
+                  name="format" 
+                  value="webp" 
+                  v-model="outputFormat"
+                  class="format-radio"
+                />
+                <span class="format-label">
+                  <strong>WebP</strong>
+                  <span class="format-desc">Excellent compression, wide browser support</span>
+                </span>
+              </label>
+              <label class="format-option">
+                <input 
+                  type="radio" 
+                  name="format" 
+                  value="avif" 
+                  v-model="outputFormat"
+                  class="format-radio"
+                />
+                <span class="format-label">
+                  <strong>AVIF</strong>
+                  <span class="format-desc">Superior compression, newer format</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="input-group">
             <label for="quality" class="input-label">
               Quality: {{ quality }}%
             </label>
@@ -68,11 +100,11 @@
         </div>
 
         <button 
-          @click="convertToWebP"
+          @click="convertImage"
           :disabled="isConverting"
           class="convert-button"
         >
-          {{ isConverting ? 'Converting...' : 'Convert to WebP' }}
+          {{ isConverting ? 'Converting...' : `Convert to ${outputFormat.toUpperCase()}` }}
         </button>
       </div>
 
@@ -91,7 +123,7 @@
           <div class="comparison-arrow">→</div>
           
           <div class="comparison-card comparison-card--highlight">
-            <div class="comparison-card__label">WebP Size</div>
+            <div class="comparison-card__label">{{ outputFormat.toUpperCase() }} Size</div>
             <div class="comparison-card__value">{{ formatFileSize(convertedSize) }}</div>
             <div class="comparison-card__savings">
               <span v-if="savings > 0" class="savings-positive">
@@ -106,18 +138,18 @@
 
         <!-- Preview -->
         <div class="preview-section">
-          <h4 class="preview-title">WebP Preview</h4>
+          <h4 class="preview-title">{{ outputFormat.toUpperCase() }} Preview</h4>
           <div class="preview-image-container">
-            <img :src="convertedImage" alt="Converted WebP image" class="preview-image" />
+            <img :src="convertedImage" :alt="`Converted ${outputFormat.toUpperCase()} image`" class="preview-image" />
           </div>
         </div>
 
         <!-- Download Button -->
-        <button @click="downloadWebP" class="download-button">
+        <button @click="downloadImage" class="download-button">
           <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
-          Download WebP
+          Download {{ outputFormat.toUpperCase() }}
         </button>
 
         <!-- Try Another -->
@@ -136,7 +168,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import { encode } from '@jsquash/webp'
+import { encode as encodeWebP } from '@jsquash/webp'
+import { encode as encodeAvif } from '@jsquash/avif'
 
 const fileInput = ref(null)
 const isDragging = ref(false)
@@ -145,6 +178,7 @@ const convertedImage = ref(null)
 const originalSize = ref(0)
 const convertedSize = ref(0)
 const originalFormat = ref('')
+const outputFormat = ref('webp')
 const quality = ref(80)
 const isConverting = ref(false)
 const error = ref('')
@@ -207,7 +241,7 @@ const clearImage = () => {
   }
 }
 
-const convertToWebP = async () => {
+const convertImage = async () => {
   if (!originalImage.value) return
   
   isConverting.value = true
@@ -231,13 +265,24 @@ const convertToWebP = async () => {
     ctx.drawImage(img, 0, 0)
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
     
-    // Convert to WebP using @jsquash/webp
-    const webpData = await encode(imageData, {
-      quality: quality.value
-    })
+    // Convert to selected format
+    let convertedData
+    let mimeType
+    
+    if (outputFormat.value === 'webp') {
+      convertedData = await encodeWebP(imageData, {
+        quality: quality.value
+      })
+      mimeType = 'image/webp'
+    } else if (outputFormat.value === 'avif') {
+      convertedData = await encodeAvif(imageData, {
+        quality: quality.value
+      })
+      mimeType = 'image/avif'
+    }
     
     // Create blob and data URL
-    const blob = new Blob([webpData], { type: 'image/webp' })
+    const blob = new Blob([convertedData], { type: mimeType })
     convertedSize.value = blob.size
     convertedImage.value = URL.createObjectURL(blob)
     
@@ -252,12 +297,12 @@ const convertToWebP = async () => {
   }
 }
 
-const downloadWebP = () => {
+const downloadImage = () => {
   if (!convertedImage.value) return
   
   const link = document.createElement('a')
   link.href = convertedImage.value
-  link.download = `${fileName.value}.webp`
+  link.download = `${fileName.value}.${outputFormat.value}`
   link.click()
 }
 
@@ -390,6 +435,58 @@ const updateSavings = () => {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.format-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.format-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.format-option:hover {
+  border-color: var(--color-accent);
+  background: #f8f9fa;
+}
+
+.format-option:has(.format-radio:checked) {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+
+.format-radio {
+  margin-top: 0.25rem;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
+.format-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.format-label strong {
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
+.format-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
 }
 
 .slider {

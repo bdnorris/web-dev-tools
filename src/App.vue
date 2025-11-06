@@ -14,7 +14,7 @@ const tools = [
   { id: 'pixel-em', name: 'Pixel to Em', component: PixelToEm },
   { id: 'line-height', name: 'Line Height Calculator', component: LineHeightCalculator },
   { id: 'figma-type', name: 'Figma Type', component: FigmaType },
-  { id: 'image-webp', name: 'Image to WebP', component: ImageToWebP }
+  { id: 'image-webp', name: 'Image Converter', component: ImageToWebP }
 ]
 
 const toggleMenu = () => {
