@@ -430,25 +430,33 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
     if (shouldProcessSequentially) {
       // Process sequentially to reduce peak memory usage
       processingStatus.value = 'Processing WebP...'
-      webpResult = await Promise.allSettled([processWebP(imageData)]).then(r => r[0])
+      const webpSettled = await Promise.allSettled([processWebP(imageData)])
+      webpResult = webpSettled[0]
       
       processingStatus.value = 'Processing AVIF...'
-      avifResult = await Promise.allSettled([processAVIF(imageData)]).then(r => r[0])
+      const avifSettled = await Promise.allSettled([processAVIF(imageData)])
+      avifResult = avifSettled[0]
       
       processingStatus.value = 'Processing PNG...'
-      pngResult = await Promise.allSettled([processPNG(canvas)]).then(r => r[0])
+      const pngSettled = await Promise.allSettled([processPNG(canvas)])
+      pngResult = pngSettled[0]
       
       processingStatus.value = 'Processing JPG...'
-      jpgResult = await Promise.allSettled([processJPG(imageData)]).then(r => r[0])
+      const jpgSettled = await Promise.allSettled([processJPG(imageData)])
+      jpgResult = jpgSettled[0]
     } else {
       // Process in parallel for smaller images (faster)
       processingStatus.value = 'Processing all formats...'
-      [webpResult, avifResult, pngResult, jpgResult] = await Promise.allSettled([
+      const settledResults = await Promise.allSettled([
         processWebP(imageData),
         processAVIF(imageData),
         processPNG(canvas),
         processJPG(imageData)
       ])
+      webpResult = settledResults[0]
+      avifResult = settledResults[1]
+      pngResult = settledResults[2]
+      jpgResult = settledResults[3]
     }
     
     processingStatus.value = 'Finalizing...'
