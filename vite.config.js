@@ -5,7 +5,7 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   optimizeDeps: {
-    exclude: ['@jsquash/webp', '@jsquash/avif']
+    exclude: ['@jsquash/webp', '@jsquash/avif', '@jsquash/jpeg', '@jsquash/oxipng']
   },
   worker: {
     format: 'es'
