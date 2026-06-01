@@ -5,6 +5,7 @@ import PixelToEm from './components/PixelToEm.vue'
 import LineHeightCalculator from './components/LineHeightCalculator.vue'
 import FigmaType from './components/FigmaType.vue'
 import ImageToWebP from './components/ImageToWebP.vue'
+import TextCompare from './components/TextCompare.vue'
 import HelpfulLinks from './components/HelpfulLinks.vue'
 
 const currentTool = ref('ratio')
@@ -16,6 +17,7 @@ const tools = [
   { id: 'line-height', name: 'Line Height Calculator', component: LineHeightCalculator },
   { id: 'figma-type', name: 'Figma Type', component: FigmaType },
   { id: 'image-webp', name: 'Image Converter', component: ImageToWebP },
+  { id: 'text-compare', name: 'Text Compare', component: TextCompare },
   { id: 'helpful-links', name: 'Helpful Links', component: HelpfulLinks }
 ]
 
@@ -89,7 +91,7 @@ onMounted(() => {
 
     <!-- Main content -->
     <main class="main" :class="{ 'main--menu-open': menuOpen }">
-      <div class="tool-container">
+      <div class="tool-container" :class="{ 'tool-container--wide': currentTool === 'text-compare' }">
         <component :is="tools.find(t => t.id === currentTool)?.component" />
       </div>
     </main>
@@ -239,6 +241,10 @@ body {
 .tool-container {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.tool-container--wide {
+  max-width: 1100px;
 }
 
 .overlay {
