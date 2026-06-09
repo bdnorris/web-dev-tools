@@ -44,6 +44,27 @@ const links = ref([
     url: 'https://gchq.github.io/CyberChef/',
     description: 'The Cyber Swiss Army Knife - a web app for encoding, decoding, encryption, compression, data analysis, and more. Perfect for cybersecurity tasks, data format conversion, and digital forensics.',
     category: 'Security & Data'
+  },
+  {
+    id: 'word-counter',
+    url: 'https://word-counter.co/',
+    title: 'Word Counter',
+    description: 'A simple online tool to count words, characters, sentences, and paragraphs.',
+    category: 'Writing & Productivity'
+  },
+  {
+    id: 'prettythumb',
+    url: 'https://prettythumb.com/',
+    title: 'PrettyThumb',
+    description: 'Generate beautiful thumbnails for your projects with ease.',
+    category: 'Design & Media'
+  },
+  {
+    id: 'favicon-checker',
+    url: 'https://colinkeany.github.io/favicon-checker/',
+    title: 'Favicon Checker',
+    description: 'Check if your website has a favicon and see how it looks across different platforms.',
+    category: 'Design & Media'
   }
 ])
 
