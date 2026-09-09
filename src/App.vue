@@ -131,7 +131,7 @@ onUnmounted(() => {
   --color-signal-red: #d62828;
   --color-safety-orange: #f77f00;
   --color-flag-gold: #fcbf49;
-  --color-chart-paper: #eae2b7;
+  --color-chart-paper: #f8e7c1;
   --color-white: #ffffff;
   --color-ink: #2c3e50;
   --color-quiet-ink: #6c757d;
