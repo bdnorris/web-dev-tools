@@ -1,18 +1,18 @@
 <template>
   <div class="tool">
     <div class="tool__header">
-      <h2 class="tool__title">Figma Type Cleaner</h2>
+      <h2 class="tool__title">Figma Type</h2>
       <p class="tool__description">
-        Paste in Figma typography CSS and get cleaner, more useful code with em units, fractional line-heights, and unnecessary properties removed.
+        Converts px to em and drops unused properties.
       </p>
     </div>
 
     <div class="figma-type-cleaner">
       <!-- Base Size Input -->
       <div class="base-size-section">
-        <h3 class="section-title">Base Font Size</h3>
+        <h3 class="section-title">Base size</h3>
         <div class="input-group">
-          <label for="base-size" class="input-label">Base Size (pixels)</label>
+          <label for="base-size" class="input-label">Root font size</label>
           <div class="input-with-unit">
             <input 
               id="base-size"
@@ -29,13 +29,13 @@
 
       <!-- Input Section -->
       <div class="input-section">
-        <h3 class="section-title">Figma CSS Input</h3>
+        <h3 id="figma-css-heading" class="section-title">Figma CSS</h3>
         <div class="textarea-group">
-          <label for="figma-css" class="input-label">Paste Figma CSS here</label>
           <textarea
             id="figma-css"
             v-model="figmaCSS"
             class="css-textarea"
+            aria-labelledby="figma-css-heading"
             placeholder="color: var(--Primary-White, #FFF);
 text-align: center;
 
@@ -52,21 +52,20 @@ line-height: 140%; /* 30.8px */"
 
       <!-- Output Section -->
       <div v-if="processedCSS" class="output-section">
-        <h3 class="section-title">Cleaned CSS Output</h3>
+        <h3 class="section-title">Cleaned CSS</h3>
         
         <div class="preview-box">
-          <h4 class="preview-box__title">Processed CSS</h4>
           <div class="code-preview">
             <pre><code>{{ processedCSS }}</code></pre>
           </div>
-          <button @click="copyCSS" class="copy-button">
+          <button @click="copyCSS" type="button" class="copy-button" aria-live="polite">
             {{ copied ? 'Copied!' : 'Copy CSS' }}
           </button>
         </div>
 
         <!-- Changes Summary -->
         <div v-if="changesSummary.length > 0" class="changes-summary">
-          <h4 class="preview-box__title">Changes Made</h4>
+          <h4 class="preview-box__title">What changed</h4>
           <ul class="changes-list">
             <li v-for="change in changesSummary" :key="change" class="change-item">
               {{ change }}
@@ -107,8 +106,11 @@ const processedCSS = computed(() => {
   let css = figmaCSS.value
   
   // Remove comments
-  css = css.replace(/\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//g, '')
-  changes.push('Removed CSS comments')
+  const withoutComments = css.replace(/\/\*[^*]*\*+(?:[^/*][^*]*\*+)*\//g, '')
+  if (withoutComments !== css) {
+    changes.push('Removed CSS comments')
+  }
+  css = withoutComments
   
   // Split into lines and process each
   const lines = css.split('\n').map(line => line.trim()).filter(line => line)
@@ -210,13 +212,13 @@ const copyCSS = async () => {
   width: 100%;
   min-height: 200px;
   padding: 1rem;
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--color-hairline);
   border-radius: 8px;
-  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: var(--font-mono, 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace);
   font-size: 0.9rem;
   line-height: 1.5;
   resize: vertical;
-  transition: all 0.3s ease;
+  transition: border-color var(--ease-standard), box-shadow var(--ease-standard);
 }
 
 .css-textarea:focus {
@@ -227,12 +229,12 @@ const copyCSS = async () => {
 
 .css-textarea::placeholder {
   color: var(--color-text-light);
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .changes-summary {
   background: var(--color-background);
-  border: 1px solid #e1e5e9;
+  border: 1px solid var(--color-hairline);
   border-radius: 8px;
   padding: 1.5rem;
   margin-top: 1rem;
@@ -252,7 +254,7 @@ const copyCSS = async () => {
 @media (max-width: 768px) {
   .css-textarea {
     min-height: 150px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 </style>

@@ -2,9 +2,6 @@
   <div class="tool">
     <div class="tool__header">
       <h2 class="tool__title">Text Compare</h2>
-      <p class="tool__description">
-        Paste text into both fields to see a line-by-line diff of the differences.
-      </p>
     </div>
 
     <div class="text-compare">
@@ -18,14 +15,13 @@
               class="clear-button"
               @click="textA = ''"
             >
-              Clear
+              Clear original
             </button>
           </div>
           <textarea
             id="text-a"
             v-model="textA"
             class="compare-textarea"
-            placeholder="Paste original text here..."
             spellcheck="false"
           ></textarea>
         </div>
@@ -39,14 +35,13 @@
               class="clear-button"
               @click="textB = ''"
             >
-              Clear
+              Clear modified
             </button>
           </div>
           <textarea
             id="text-b"
             v-model="textB"
             class="compare-textarea"
-            placeholder="Paste modified text here..."
             spellcheck="false"
           ></textarea>
         </div>
@@ -56,11 +51,11 @@
         <h3 class="section-title">Differences</h3>
 
         <p v-if="isEmpty" class="diff-placeholder">
-          Paste text above to compare.
+          Add text in both fields.
         </p>
 
         <template v-else-if="isIdentical">
-          <p class="diff-summary diff-summary--neutral">No differences</p>
+          <p class="diff-summary diff-summary--neutral">These texts match.</p>
         </template>
 
         <template v-else>
@@ -162,7 +157,7 @@ const linesAdded = computed(() =>
   background: none;
   border: none;
   color: var(--color-text-light);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
@@ -174,17 +169,21 @@ const linesAdded = computed(() =>
   background: rgba(214, 40, 40, 0.08);
 }
 
+.clear-button:focus-visible {
+  outline-offset: 2px;
+}
+
 .compare-textarea {
   width: 100%;
   min-height: 200px;
   padding: 1rem;
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--color-hairline);
   border-radius: 8px;
-  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: var(--font-mono, 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace);
   font-size: 0.9rem;
   line-height: 1.5;
   resize: vertical;
-  transition: all 0.3s ease;
+  transition: border-color var(--ease-standard), box-shadow var(--ease-standard);
 }
 
 .compare-textarea:focus {
@@ -195,7 +194,7 @@ const linesAdded = computed(() =>
 
 .compare-textarea::placeholder {
   color: var(--color-text-light);
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .diff-section {
@@ -208,12 +207,12 @@ const linesAdded = computed(() =>
 .diff-summary--neutral {
   color: var(--color-text-light);
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .diff-summary {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: var(--color-text);
   font-weight: 500;
 }
@@ -221,10 +220,10 @@ const linesAdded = computed(() =>
 .diff-panel {
   max-height: 480px;
   overflow: auto;
-  border: 1px solid #e1e5e9;
+  border: 1px solid var(--color-hairline);
   border-radius: 8px;
-  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.85rem;
+  font-family: var(--font-mono, 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace);
+  font-size: 0.9rem;
   line-height: 1.5;
 }
 
@@ -232,8 +231,8 @@ const linesAdded = computed(() =>
   display: flex;
   align-items: flex-start;
   padding: 0 0.5rem;
-  background: #f8f9fa;
-  border-bottom: 1px solid #eef1f4;
+  background: var(--color-inset-paper);
+  border-bottom: 1px solid var(--color-hairline);
 }
 
 .diff-chunk:last-child {
@@ -241,11 +240,11 @@ const linesAdded = computed(() =>
 }
 
 .diff-chunk--removed {
-  background: #fde8e8;
+  background: #f8d7da;
 }
 
 .diff-chunk--added {
-  background: #e6f4ea;
+  background: var(--color-chart-paper);
 }
 
 .diff-prefix {
@@ -262,7 +261,7 @@ const linesAdded = computed(() =>
 }
 
 .diff-chunk--added .diff-prefix {
-  color: #1e7e34;
+  color: var(--color-chart-navy);
   font-weight: 600;
 }
 
@@ -281,12 +280,12 @@ const linesAdded = computed(() =>
 
   .compare-textarea {
     min-height: 150px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .diff-panel {
     max-height: 360px;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 </style>

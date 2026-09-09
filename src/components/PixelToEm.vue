@@ -1,18 +1,18 @@
 <template>
   <div class="tool">
     <div class="tool__header">
-      <h2 class="tool__title">Pixel to Em Converter</h2>
+      <h2 class="tool__title">Pixel to Em</h2>
       <p class="tool__description">
-        Convert pixels to em units based on your base font size. Perfect for responsive typography and spacing.
+        Uses your root font size.
       </p>
     </div>
 
     <div class="pixel-em-converter">
       <!-- Base Size Input -->
       <div class="base-size-section">
-        <h3 class="section-title">Base Font Size</h3>
+        <h3 class="section-title">Base size</h3>
         <div class="input-group">
-          <label for="base-size" class="input-label">Base Size (pixels)</label>
+          <label for="base-size" class="input-label">Root font size</label>
           <div class="input-with-unit">
             <input 
               id="base-size"
@@ -29,7 +29,7 @@
 
       <!-- Conversion Section -->
       <div class="conversion-section">
-        <h3 class="section-title">Convert Values</h3>
+        <h3 class="section-title">Conversion</h3>
         <div class="converter-grid">
           <div class="input-group">
             <label for="pixels" class="input-label">Pixels</label>
@@ -49,7 +49,7 @@
           <div class="conversion-equals">=</div>
 
           <div class="input-group">
-            <label for="ems" class="input-label">Ems</label>
+            <label for="ems" class="input-label">em</label>
             <div class="ems-input-container">
               <div class="input-with-unit">
                 <input 
@@ -65,13 +65,15 @@
               </div>
             </div>
           </div>
-          <button 
-            v-if="ems" 
+          <button
+            v-if="ems"
+            type="button"
             @click="copyEms" 
             class="copy-button copy-button--small"
             :disabled="!ems"
+            aria-live="polite"
           >
-            {{ copied ? 'Copied!' : 'Copy' }}
+            {{ copied ? 'Copied!' : 'Copy em' }}
           </button>
         </div>
 
@@ -85,23 +87,24 @@
 
       <!-- Common Values Table -->
       <div class="common-values-section">
-        <h3 class="section-title">Common Values</h3>
+        <h3 class="section-title">Typical sizes</h3>
         <div class="values-table">
           <div class="table-header">
             <div class="table-cell">Pixels</div>
-            <div class="table-cell">Em ({{ baseSize }}px base)</div>
-            <div class="table-cell">Usage</div>
+            <div class="table-cell">em ({{ baseSize }}px root)</div>
+            <div class="table-cell">Typical use</div>
           </div>
-          <div 
+          <button
             v-for="value in commonValues" 
-            :key="value.px" 
+            :key="value.px"
+            type="button"
             class="table-row"
             @click="setValues(value.px)"
           >
             <div class="table-cell">{{ value.px }}px</div>
             <div class="table-cell">{{ (value.px / baseSize).toFixed(3) }}em</div>
             <div class="table-cell table-cell--usage">{{ value.usage }}</div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -196,7 +199,7 @@ onMounted(() => {
 .conversion-equals {
   font-size: 2rem;
   color: var(--color-accent);
-  font-weight: bold;
+  font-weight: 700;
   /* margin-bottom: 0.5rem; */
 }
 
@@ -212,12 +215,12 @@ onMounted(() => {
 
 .copy-button--small {
   padding: 0.375rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   /* align-self: flex-start; */
 }
 
 .values-table {
-  border: 1px solid #e1e5e9;
+  border: 1px solid var(--color-hairline);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -235,13 +238,25 @@ onMounted(() => {
 }
 
 .table-row {
-  border-top: 1px solid #e1e5e9;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-top: 1px solid var(--color-hairline);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: start;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color var(--ease-standard);
 }
 
 .table-row:hover {
   background: var(--color-background);
+}
+
+.table-row:focus-visible {
+  outline-offset: -4px;
 }
 
 .table-cell {

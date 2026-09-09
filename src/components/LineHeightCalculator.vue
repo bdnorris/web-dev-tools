@@ -3,17 +3,17 @@
     <div class="tool__header">
       <h2 class="tool__title">Line Height Calculator</h2>
       <p class="tool__description">
-        Calculate fractional line height values from pixel measurements. Perfect for maintaining consistent vertical rhythm in your designs.
+        From two pixel measurements.
       </p>
     </div>
 
     <div class="line-height-calculator">
       <!-- Input Section -->
       <div class="input-section">
-        <h3 class="section-title">Font & Line Height Measurements</h3>
+        <h3 class="section-title">Measurements</h3>
         <div class="inputs-grid">
           <div class="input-group">
-            <label for="font-size" class="input-label">Font Size</label>
+            <label for="font-size" class="input-label">Font size</label>
             <div class="input-with-unit">
               <input 
                 id="font-size"
@@ -29,7 +29,7 @@
           </div>
 
           <div class="input-group">
-            <label for="line-height-px" class="input-label">Line Height</label>
+            <label for="line-height-px" class="input-label">Line height</label>
             <div class="input-with-unit">
               <input 
                 id="line-height-px"
@@ -53,68 +53,69 @@
         <div class="results-grid">
           <!-- Decimal Result -->
           <div class="result-card result-card--primary">
-            <div class="result-label">Decimal Line Height</div>
+            <div class="result-label">Decimal</div>
             <div class="result-value">{{ decimalLineHeight }}</div>
-            <div class="result-description">Use this value in CSS</div>
+            <div class="result-description">CSS line-height</div>
           </div>
 
           <!-- Fraction Result -->
           <div class="result-card result-card--secondary">
-            <div class="result-label">Fractional Line Height</div>
+            <div class="result-label">Fraction</div>
             <div class="result-value">{{ fractionLineHeight }}</div>
-            <div class="result-description">Simplified fraction</div>
+            <div class="result-description">Same ratio, as a fraction</div>
           </div>
 
           <!-- Percentage Result -->
           <div class="result-card result-card--accent">
-            <div class="result-label">Percentage Line Height</div>
+            <div class="result-label">Percent</div>
             <div class="result-value">{{ percentageLineHeight }}%</div>
-            <div class="result-description">Alternative format</div>
+            <div class="result-description">Same ratio, as a percent</div>
           </div>
         </div>
 
         <!-- CSS Preview -->
         <div class="preview-box">
-          <h4 class="preview-box__title">CSS Code</h4>
+          <h4 class="preview-box__title">CSS</h4>
           <div class="code-preview">
             <code>
 font-size: {{ fontSize }}px;<br>
 line-height: {{ decimalLineHeight }}; /* {{ fractionLineHeight }} */
             </code>
           </div>
-          <button @click="copyCss" class="copy-button">
+          <button type="button" @click="copyCss" class="copy-button" aria-live="polite">
             {{ copied ? 'Copied!' : 'Copy CSS' }}
           </button>
         </div>
 
         <!-- Visual Preview -->
         <div class="preview-box">
-          <h4 class="preview-box__title">Visual Preview</h4>
+          <h4 class="preview-box__title">Preview</h4>
           <div 
             class="preview-text" 
             :style="{ fontSize: fontSize + 'px', lineHeight: decimalLineHeight }"
           >
-            <p>This is how your text will look with the calculated line height.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-            <p>Notice the spacing between these lines matches your specified measurements.</p>
+            <p>Body copy used to check leading.</p>
+            <p>A second line so the gap between them is visible.</p>
+            <p>A third line for a full paragraph rhythm.</p>
           </div>
         </div>
       </div>
 
       <!-- Common Ratios -->
       <div class="common-ratios-section">
-        <h3 class="section-title">Common Line Height Ratios</h3>
+        <h3 class="section-title">Common ratios</h3>
         <div class="ratios-grid">
-          <div 
+          <button 
             v-for="ratio in commonRatios" 
             :key="ratio.value"
+            type="button"
             class="ratio-card"
             @click="applyRatio(ratio.value)"
           >
             <div class="ratio-value">{{ ratio.value }}</div>
             <div class="ratio-name">{{ ratio.name }}</div>
             <div class="ratio-usage">{{ ratio.usage }}</div>
-          </div>
+          </button>
         </div>
       </div>
     </div>
@@ -215,18 +216,25 @@ const copyCss = async () => {
 }
 
 .ratio-card {
+  width: 100%;
   background: var(--color-background);
   border: 2px solid transparent;
   border-radius: 8px;
   padding: 1.5rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font: inherit;
+  color: inherit;
+  transition: border-color var(--ease-standard), background-color var(--ease-standard);
 }
 
 .ratio-card:hover {
   border-color: var(--color-accent);
   background: var(--color-white);
+}
+
+.ratio-card:focus-visible {
+  outline-offset: 2px;
 }
 
 .ratio-value {
@@ -243,7 +251,7 @@ const copyCss = async () => {
 }
 
 .ratio-usage {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: var(--color-text-light);
 }
 

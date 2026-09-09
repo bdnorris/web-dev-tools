@@ -2,15 +2,12 @@
   <div class="tool">
     <div class="tool__header">
       <h2 class="tool__title">Ratio Converter</h2>
-      <p class="tool__description">
-        Enter a ratio and convert values proportionally.
-      </p>
     </div>
 
     <div class="ratio-converter">
       <!-- Ratio Input -->
       <div class="ratio-section">
-        <h3 class="section-title">Set Your Ratio</h3>
+        <h3 class="section-title">Ratio</h3>
         <div class="ratio-inputs">
           <div class="input-group">
             <label for="ratio-a" class="input-label">A</label>
@@ -40,28 +37,28 @@
 
       <!-- Conversion Section -->
       <div class="conversion-section">
-        <h3 class="section-title">Convert Values</h3>
+        <h3 class="section-title">Values</h3>
         <div class="conversion-inputs">
           <div class="input-group">
-            <label for="value-1" class="input-label">Value 1</label>
+            <label for="value-1" class="input-label">When A is</label>
             <input 
               id="value-1"
               v-model.number="value1" 
               type="number" 
               class="input input--large"
-              placeholder="Enter value"
+              placeholder="12"
               @input="calculateValue2"
             />
           </div>
           <div class="conversion-arrow">→</div>
           <div class="input-group">
-            <label for="value-2" class="input-label">Value 2</label>
+            <label for="value-2" class="input-label">B is</label>
             <input 
               id="value-2"
               v-model.number="value2" 
               type="number" 
               class="input input--large"
-              placeholder="Enter value"
+              placeholder="16"
               @input="calculateValue1"
             />
           </div>
@@ -159,7 +156,7 @@ const calculateFromRatio = () => {
 .conversion-arrow {
   font-size: 2rem;
   color: var(--color-accent);
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .calculation-display {

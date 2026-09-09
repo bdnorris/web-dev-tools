@@ -3,21 +3,21 @@
     <div class="tool__header">
       <h2 class="tool__title">Image Converter</h2>
       <p class="tool__description">
-        Convert and compress JPG and PNG images to multiple formats. Upload an image to automatically generate WebP, AVIF, PNG, and JPG compressed versions with file size comparisons. Recommended maximum: 5000×5000 pixels (25MP).
+        JPG or PNG, in the browser. Nothing leaves this machine.
       </p>
     </div>
 
     <div class="webp-converter">
       <!-- Upload Section -->
       <div class="upload-section">
-        <h3 class="section-title">Upload Image</h3>
+        <h3 class="section-title">Upload</h3>
         <div 
           class="drop-zone"
           :class="{ 'drop-zone--active': isDragging, 'drop-zone--has-image': originalImage }"
           @drop.prevent="handleDrop"
           @dragover.prevent="isDragging = true"
           @dragleave.prevent="isDragging = false"
-          @click="triggerFileInput"
+          @click="originalImage && triggerFileInput()"
         >
           <input 
             ref="fileInput"
@@ -25,26 +25,27 @@
             accept="image/jpeg,image/jpg,image/png"
             @change="handleFileSelect"
             class="file-input"
+            aria-label="Add a JPG or PNG"
           />
           <div v-if="!originalImage" class="drop-zone__content">
-            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg class="upload-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
             </svg>
             <p class="drop-zone__text">
-              <strong>Click to upload</strong> or drag and drop
+              Add a JPG or PNG
             </p>
-            <p class="drop-zone__hint">JPG or PNG (max 10MB, recommended: 5000×5000px)</p>
+            <p class="drop-zone__hint">10MB max. Around 5000×5000px stays snappy.</p>
           </div>
           <div v-else class="image-preview">
             <img :src="originalImage" alt="Original image" />
-            <button @click.stop="clearImage" class="clear-button">×</button>
+            <button type="button" @click.stop="clearImage" class="clear-button" aria-label="Remove image">×</button>
           </div>
         </div>
       </div>
 
       <!-- Quality Settings -->
       <div v-if="originalImage && !isProcessing" class="settings-section">
-        <h3 class="section-title">Compression Quality</h3>
+        <h3 class="section-title">Quality</h3>
         <div class="input-group">
           <label for="quality" class="input-label">
             Quality: {{ quality }}%
@@ -64,20 +65,19 @@
             <span>50%</span>
             <span>100%</span>
           </div>
-          <p class="quality-hint">Adjust quality to balance file size and image quality</p>
         </div>
       </div>
 
       <!-- Loading Indicator -->
       <div v-if="isProcessing" class="loading-section">
         <div class="loading-spinner"></div>
-        <p class="loading-text">{{ processingStatus || 'Processing all formats...' }}</p>
-        <p v-if="processingStatus" class="loading-hint">This may take a moment for large images...</p>
+        <p class="loading-text">{{ processingStatus || 'Converting to WebP, AVIF, PNG, and JPG…' }}</p>
+        <p v-if="processingStatus" class="loading-hint">Large images can take a few seconds.</p>
       </div>
 
       <!-- Results Section -->
       <div v-if="results && !isProcessing" class="results-section">
-        <h3 class="section-title">Compression Results</h3>
+        <h3 class="section-title">Results</h3>
         
         <!-- Format Cards Grid -->
         <div class="formats-grid">
@@ -89,7 +89,7 @@
             </div>
             <div class="format-card__size">{{ formatFileSize(results.original.size) }}</div>
             <div class="format-card__savings">Reference</div>
-            <button @click="downloadFormat('original')" class="format-card__download" :disabled="!results.original.url">
+            <button type="button" @click="downloadFormat('original')" class="format-card__download" :disabled="!results.original.url" aria-label="Download original">
               <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -109,7 +109,7 @@
               <span v-else-if="results.webp.savings < 0">↑ {{ Math.abs(results.webp.savings) }}% larger</span>
               <span v-else>Same size</span>
             </div>
-            <button @click="downloadFormat('webp')" class="format-card__download" :disabled="!results.webp.url">
+            <button type="button" @click="downloadFormat('webp')" class="format-card__download" :disabled="!results.webp.url" aria-label="Download WebP">
               <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -129,7 +129,7 @@
               <span v-else-if="results.png.savings < 0">↑ {{ Math.abs(results.png.savings) }}% larger</span>
               <span v-else>Same size</span>
             </div>
-            <button @click="downloadFormat('png')" class="format-card__download" :disabled="!results.png.url">
+            <button type="button" @click="downloadFormat('png')" class="format-card__download" :disabled="!results.png.url" aria-label="Download PNG">
               <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -149,7 +149,7 @@
               <span v-else-if="results.avif.savings < 0">↑ {{ Math.abs(results.avif.savings) }}% larger</span>
               <span v-else>Same size</span>
             </div>
-            <button @click="downloadFormat('avif')" class="format-card__download" :disabled="!results.avif.url">
+            <button type="button" @click="downloadFormat('avif')" class="format-card__download" :disabled="!results.avif.url" aria-label="Download AVIF">
               <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -169,7 +169,7 @@
               <span v-else-if="results.jpg.savings < 0">↑ {{ Math.abs(results.jpg.savings) }}% larger</span>
               <span v-else>Same size</span>
             </div>
-            <button @click="downloadFormat('jpg')" class="format-card__download" :disabled="!results.jpg.url">
+            <button type="button" @click="downloadFormat('jpg')" class="format-card__download" :disabled="!results.jpg.url" aria-label="Download JPG">
               <svg class="download-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
@@ -179,14 +179,14 @@
         </div>
 
         <!-- Try Another -->
-        <button @click="reset" class="reset-button">
+        <button type="button" @click="reset" class="reset-button">
           Convert Another Image
         </button>
       </div>
 
       <!-- Error Display -->
-      <div v-if="error" class="error-message">
-        <strong>Error:</strong> {{ error }}
+      <div v-if="error" class="error-message" role="alert">
+        {{ error }}
       </div>
     </div>
   </div>
@@ -258,13 +258,13 @@ const processFile = (file) => {
   
   // Validate file type
   if (!['image/jpeg', 'image/jpg', 'image/png'].includes(file.type)) {
-    error.value = 'Please upload a JPG or PNG image.'
+    error.value = 'This file isn’t a JPG or PNG. Choose one of those formats.'
     return
   }
   
   // Validate file size (10MB max)
   if (file.size > 10 * 1024 * 1024) {
-    error.value = 'File size must be less than 10MB.'
+    error.value = 'This file is over 10MB. Choose a smaller one.'
     return
   }
   
@@ -355,7 +355,7 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
   
   isProcessing.value = true
   error.value = ''
-  processingStatus.value = 'Loading image...'
+  processingStatus.value = 'Loading image…'
   
   try {
     // Check memory before starting
@@ -378,7 +378,7 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
     
     // Hard limit - reject if way too large
     if (pixelCount > maxPixelsHardLimit) {
-      error.value = `Image too large (${img.width}×${img.height} = ${Math.round(pixelCount / 1_000_000)}MP). Maximum ${Math.round(maxPixelsHardLimit / 1_000_000)}MP (approximately 7000×7000 pixels) supported.`
+      error.value = `This image is ${img.width}×${img.height} (${Math.round(pixelCount / 1_000_000)}MP). The limit is about 7000×7000 (50MP). Choose a smaller image.`
       isProcessing.value = false
       return
     }
@@ -397,7 +397,7 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
     
     try {
       if (targetDimensions.scale < 1) {
-        processingStatus.value = `Downscaling image from ${img.width}×${img.height} to ${targetDimensions.width}×${targetDimensions.height} (${Math.round(targetDimensions.scale * 100)}%)...`
+        processingStatus.value = `Reducing from ${img.width}×${img.height} to ${targetDimensions.width}×${targetDimensions.height}…`
         canvas = document.createElement('canvas')
         canvas.width = targetDimensions.width
         canvas.height = targetDimensions.height
@@ -429,24 +429,24 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
     
     if (shouldProcessSequentially) {
       // Process sequentially to reduce peak memory usage
-      processingStatus.value = 'Processing WebP...'
+      processingStatus.value = 'Converting to WebP…'
       const webpSettled = await Promise.allSettled([processWebP(imageData)])
       webpResult = webpSettled[0]
       
-      processingStatus.value = 'Processing AVIF...'
+      processingStatus.value = 'Converting to AVIF…'
       const avifSettled = await Promise.allSettled([processAVIF(imageData)])
       avifResult = avifSettled[0]
       
-      processingStatus.value = 'Processing PNG...'
+      processingStatus.value = 'Optimizing PNG…'
       const pngSettled = await Promise.allSettled([processPNG(canvas)])
       pngResult = pngSettled[0]
       
-      processingStatus.value = 'Processing JPG...'
+      processingStatus.value = 'Converting to JPG…'
       const jpgSettled = await Promise.allSettled([processJPG(imageData)])
       jpgResult = jpgSettled[0]
     } else {
       // Process in parallel for smaller images (faster)
-      processingStatus.value = 'Processing all formats...'
+      processingStatus.value = 'Converting to WebP, AVIF, PNG, and JPG…'
       const settledResults = await Promise.allSettled([
         processWebP(imageData),
         processAVIF(imageData),
@@ -459,7 +459,7 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
       jpgResult = settledResults[3]
     }
     
-    processingStatus.value = 'Finalizing...'
+    processingStatus.value = 'Finishing…'
     
     // Store original - use the data URL directly
     const originalUrl = imageDataUrl
@@ -501,7 +501,7 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
     if (errors.length > 0) {
       console.warn('Some formats failed to process:', errors)
       if (errors.length === 4) {
-        error.value = `All formats failed to process: ${errors.join(', ')}`
+        error.value = 'Couldn’t convert this image. Try a smaller JPG or PNG.'
       }
     }
     
@@ -515,11 +515,11 @@ const processAllFormats = async (imageDataUrl, originalFile) => {
       err.message.includes('too large') ||
       err.name === 'RangeError'
     )) {
-      error.value = `Out of memory error. The image may be too large. Try a smaller image or close other browser tabs.`
+      error.value = 'The browser ran out of memory. Try a smaller image or close other tabs.'
     } else if (err.message && err.message.includes('Canvas')) {
-      error.value = `Canvas size limit exceeded. Image dimensions are too large.`
+      error.value = 'This image is too large for the canvas. Try a smaller one.'
     } else {
-      error.value = `Processing failed: ${err.message || 'Unknown error'}`
+      error.value = 'Couldn’t convert this image. Try a different JPG or PNG.'
     }
   } finally {
     isProcessing.value = false
@@ -660,25 +660,29 @@ const getSavingsClass = (savings) => {
 }
 
 .drop-zone {
-  border: 2px dashed #e1e5e9;
+  border: 2px dashed var(--color-hairline);
   border-radius: 12px;
   padding: 3rem 2rem;
   text-align: center;
   cursor: pointer;
-  transition: all 0.3s ease;
-  background: #f8f9fa;
+  transition: border-color var(--ease-standard), background-color var(--ease-standard), box-shadow var(--ease-standard);
+  background: var(--color-inset-paper);
   position: relative;
 }
 
 .drop-zone:hover {
   border-color: var(--color-accent);
-  background: #fff;
+  background: var(--color-white);
+}
+
+.drop-zone:focus-within:not(.drop-zone--has-image) {
+  border-color: var(--color-safety-orange);
+  box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
 }
 
 .drop-zone--active {
   border-color: var(--color-accent);
   background: var(--color-accent-light);
-  opacity: 0.8;
 }
 
 .drop-zone--has-image {
@@ -688,6 +692,15 @@ const getSavingsClass = (savings) => {
 }
 
 .file-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.drop-zone--has-image .file-input {
   display: none;
 }
 
@@ -706,7 +719,9 @@ const getSavingsClass = (savings) => {
 
 .drop-zone__text {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
   color: var(--color-text);
 }
 
@@ -739,7 +754,7 @@ const getSavingsClass = (savings) => {
   height: 40px;
   border-radius: 50%;
   background: var(--color-secondary);
-  color: white;
+  color: var(--color-white);
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
@@ -752,7 +767,6 @@ const getSavingsClass = (savings) => {
 
 .clear-button:hover {
   background: var(--color-primary);
-  transform: scale(1.1);
 }
 
 .settings-section {
@@ -765,21 +779,15 @@ const getSavingsClass = (savings) => {
   gap: 0.5rem;
 }
 
-.quality-hint {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--color-text-light);
-  font-style: italic;
-}
-
 .slider {
   width: 100%;
   height: 8px;
   border-radius: 4px;
-  background: #e1e5e9;
+  background: var(--color-hairline);
   outline: none;
   -webkit-appearance: none;
   appearance: none;
+  accent-color: var(--color-safety-orange);
 }
 
 .slider::-webkit-slider-thumb {
@@ -816,7 +824,7 @@ const getSavingsClass = (savings) => {
 .slider-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--color-text-light);
   margin-top: 0.25rem;
 }
@@ -833,7 +841,7 @@ const getSavingsClass = (savings) => {
 .loading-spinner {
   width: 48px;
   height: 48px;
-  border: 4px solid #e1e5e9;
+  border: 4px solid var(--color-hairline);
   border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
@@ -845,7 +853,7 @@ const getSavingsClass = (savings) => {
 
 .loading-text {
   color: var(--color-text);
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin: 0;
   font-weight: 500;
 }
@@ -853,8 +861,8 @@ const getSavingsClass = (savings) => {
 .loading-hint {
   color: var(--color-text-light);
   font-size: 0.9rem;
+  font-weight: 500;
   margin: 0.5rem 0 0 0;
-  font-style: italic;
 }
 
 .formats-grid {
@@ -865,15 +873,15 @@ const getSavingsClass = (savings) => {
 }
 
 .format-card {
-  background: #f8f9fa;
+  background: var(--color-inset-paper);
   border-radius: 12px;
   padding: 1.5rem;
   text-align: center;
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--color-hairline);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: all 0.3s ease;
+  transition: border-color var(--ease-standard), background-color var(--ease-standard), box-shadow var(--ease-standard), transform var(--ease-standard);
 }
 
 .format-card:hover {
@@ -883,8 +891,8 @@ const getSavingsClass = (savings) => {
 }
 
 .format-card--best {
-  background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent));
-  border-color: var(--color-accent);
+  background: var(--color-flag-gold);
+  border-color: var(--color-safety-orange);
   color: var(--color-primary);
 }
 
@@ -901,8 +909,9 @@ const getSavingsClass = (savings) => {
 }
 
 .format-card__label {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.3;
   color: var(--color-primary);
 }
 
@@ -939,24 +948,25 @@ const getSavingsClass = (savings) => {
 }
 
 .savings-positive {
-  color: #28a745;
+  color: var(--color-chart-navy);
 }
 
 .savings-negative {
-  color: #dc3545;
+  color: var(--color-signal-red);
 }
 
 .format-card__download {
   width: 100%;
   padding: 0.75rem 1rem;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-white);
   border: none;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  font-family: inherit;
+  transition: background-color var(--ease-standard);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -966,19 +976,17 @@ const getSavingsClass = (savings) => {
 
 .format-card__download:hover:not(:disabled) {
   background: var(--color-secondary);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .format-card__download:disabled {
-  background: #ccc;
+  background: var(--color-hairline);
+  color: var(--color-quiet-ink);
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
 .format-card--best .format-card__download {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-white);
 }
 
 .format-card--best .format-card__download:hover:not(:disabled) {
@@ -1005,7 +1013,11 @@ const getSavingsClass = (savings) => {
 
 .reset-button:hover {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-white);
+}
+
+.reset-button:focus-visible {
+  outline-offset: 2px;
 }
 
 .error-message {

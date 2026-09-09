@@ -147,6 +147,26 @@ onUnmounted(() => {
   --color-text-light: var(--color-quiet-ink);
   --handle-width: 13.5rem;
   --ease-standard: 200ms ease-out;
+  --font-sans: "IBM Plex Sans", "IBM Plex Sans Fallback", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "IBM Plex Mono Fallback", Monaco, Menlo, Ubuntu Mono, monospace;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans Fallback";
+  src: local("Arial");
+  size-adjust: 105.4%;
+  ascent-override: 97%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono Fallback";
+  src: local("Courier New");
+  size-adjust: 99.2%;
+  ascent-override: 102%;
+  descent-override: 32%;
+  line-gap-override: 0%;
 }
 
 * {
@@ -159,7 +179,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-chart-paper);
   color: var(--color-ink);
   line-height: 1.6;
@@ -174,6 +194,10 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-safety-orange);
   outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 0.2em;
 }
 
 .skip-link {
@@ -254,8 +278,10 @@ body {
   padding: 0 0.25rem;
   font-size: 1.5rem;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
   color: var(--color-flag-gold);
+  text-wrap: balance;
 }
 
 .handle__nav {
@@ -284,7 +310,8 @@ body {
   font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
   transition: background-color var(--ease-standard), color var(--ease-standard);
   position: relative;
 }
@@ -417,12 +444,16 @@ body {
   margin: 0 0 0.5rem 0;
   font-size: 2rem;
   font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .tool__description {
   color: var(--color-quiet-ink);
   margin: 0;
   font-size: 1rem;
+  max-width: 65ch;
 }
 
 .section-title {
@@ -430,6 +461,8 @@ body {
   margin: 1.5rem 0 1rem 0;
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
 }
 
 .input-group {
@@ -442,6 +475,7 @@ body {
   font-weight: 500;
   color: var(--color-ink);
   font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .input-with-unit {
@@ -482,10 +516,20 @@ body {
   width: 100%;
 }
 
+.input:hover:not(:focus) {
+  border-color: var(--color-flag-gold);
+}
+
 .input:focus {
   outline: none;
   border-color: var(--color-safety-orange);
   box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
+}
+
+.input::placeholder,
+textarea::placeholder {
+  color: var(--color-quiet-ink);
+  opacity: 1;
 }
 
 .unit {
@@ -507,6 +551,8 @@ body {
   margin: 0 0 1em 0;
   color: var(--color-chart-navy);
   font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .code-preview {
@@ -514,9 +560,10 @@ body {
   color: #e2e8f0;
   padding: 1rem;
   border-radius: 6px;
-  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
   margin-bottom: 1rem;
   overflow-x: auto;
 }
@@ -528,7 +575,7 @@ body {
 }
 
 .calculation__formula {
-  font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 1rem;
   color: var(--color-chart-navy);
   font-weight: 600;
@@ -543,7 +590,8 @@ body {
   cursor: pointer;
   font-family: inherit;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background-color var(--ease-standard);
 }
 
 .copy-button:hover {
@@ -589,20 +637,25 @@ body {
 
 .result-label {
   font-size: 0.9rem;
-  opacity: 0.9;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
   margin-bottom: 0.5rem;
 }
 
 .result-value {
   font-size: 2rem;
   font-weight: 700;
+  line-height: 1.2;
   margin-bottom: 0.5rem;
   font-variant-numeric: tabular-nums;
 }
 
 .result-description {
   font-size: 0.9rem;
-  opacity: 0.8;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 768px) {

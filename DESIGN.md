@@ -15,37 +15,49 @@ colors:
   code-slate: "#2d3748"
 typography:
   display:
-    fontFamily: "IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "2rem"
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: "normal"
   headline:
-    fontFamily: "IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "1.5rem"
     fontWeight: 600
-    lineHeight: 1.3
-    letterSpacing: "normal"
+    lineHeight: 1.35
+    letterSpacing: "0.01em"
   title:
-    fontFamily: "IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "1.25rem"
     fontWeight: 600
     lineHeight: 1.3
     letterSpacing: "normal"
   body:
-    fontFamily: "IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
     letterSpacing: "normal"
   label:
-    fontFamily: "IBM Plex Sans, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     fontSize: "0.9rem"
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: "normal"
+  chip:
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 500
+    lineHeight: 1.3
+    letterSpacing: "0.04em"
+  shout:
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Fallback, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+    fontSize: "2rem"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "normal"
   mono:
-    fontFamily: "IBM Plex Mono, Monaco, Menlo, Ubuntu Mono, monospace"
+    fontFamily: "IBM Plex Mono, IBM Plex Mono Fallback, Monaco, Menlo, Ubuntu Mono, monospace"
     fontSize: "0.9rem"
     fontWeight: 400
     lineHeight: 1.5
@@ -177,18 +189,21 @@ Signal inks on cream stock. The palette is loud so the chrome can stay plain.
 **Character:** One workhorse grotesque for the whole shop. Weight and size do hierarchy; there is no display face. Mono is for things you copy: CSS, formulas, diffs, URLs.
 
 ### Hierarchy
-- **Display** (600, 2rem, ~1.2): Tool titles on the white sheet.
-- **Headline** (600, 1.5rem, ~1.3): Product name in the handle.
-- **Title** (600, 1.25rem, ~1.3): Section headings inside a tool.
-- **Body** (400, 1rem, 1.6): Descriptions and running UI copy.
-- **Label** (500, 0.9rem): Field labels, units, quiet metadata. Category chips go smaller (0.75rem, uppercase).
+- **Display** (600, 2rem, 1.2): Tool titles on the white sheet. `text-wrap: balance`.
+- **Headline** (600, 1.5rem, 1.35): Product name in the handle. Slightly more leading and tracking on navy.
+- **Title** (600, 1.25rem, 1.3): Section headings and preview-box titles.
+- **Body** (400, 1rem, 1.6): Descriptions and running UI copy. Prose max 65ch.
+- **Label** (500, 0.9rem, 1.4): Field labels, units, quiet metadata.
+- **Chip** (500, 0.75rem, uppercase): Category and format tags only.
+- **Shout** (700, 2rem, tabular): Result values inside color cards.
+- **Mono** (400, 0.9rem, 1.5): Copyable values, CSS, formulas, diffs, URLs.
 
-Result values inside color cards jump to 2rem / 700 — a data shout, not a new display role.
+Loaded weights: Sans 400 / 500 / 600 / 700; Mono 400 / 600. Metric fallbacks (`IBM Plex Sans Fallback`, `IBM Plex Mono Fallback`) are local Arial / Courier New with `size-adjust`, not extra brand faces.
 
 ### Named Rules
 **The One Voice Rule.** IBM Plex Sans is the only UI face. Do not pair a serif or a second grotesque. Mono is reserved for copyable values.
 
-**The Fixed-Rem Rule.** Type is stepped in rem (2 / 1.5 / 1.25 / 1 / 0.9). No fluid `clamp()` headings. Product UI is viewed at a desk, not as a marketing hero.
+**The Fixed-Rem Rule.** Type is stepped in rem (2 / 1.5 / 1.25 / 1 / 0.9 / 0.75 chip). No fluid `clamp()` headings. Product UI is viewed at a desk, not as a marketing hero.
 
 ## Layout
 

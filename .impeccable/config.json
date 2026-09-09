@@ -18,6 +18,42 @@
         "value": "rgba(0, 0, 0, 0.1)",
         "createdAt": "2026-09-09T13:40:15.061Z",
         "reason": "Agent: DESIGN.md incidental sheet shadow 0 4px 6px rgba(0,0,0,0.1)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "karla",
+        "files": [
+          "src/components/FigmaType.vue"
+        ],
+        "createdAt": "2026-09-09T16:16:27.033Z",
+        "reason": "Agent: Karla appears only in sample Figma CSS inside a textarea placeholder, not as UI type"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "22px",
+        "files": [
+          "src/components/FigmaType.vue"
+        ],
+        "createdAt": "2026-09-09T16:17:14.172Z",
+        "reason": "Agent: 22px appears only in sample Figma CSS inside a textarea placeholder, not as UI type"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#f8d7da",
+        "createdAt": "2026-09-09T18:25:41.670Z",
+        "reason": "Agent: DESIGN.md Inputs/Fields names #f8d7da as the error well, not a fifth brand color"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#721c24",
+        "createdAt": "2026-09-09T18:25:41.685Z",
+        "reason": "Agent: DESIGN.md Inputs/Fields names #721c24 as error text on the rose well"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "#f5c6cb",
+        "createdAt": "2026-09-09T18:25:41.701Z",
+        "reason": "Agent: companion stroke for the DESIGN.md error well #f8d7da"
       }
     ]
   }
