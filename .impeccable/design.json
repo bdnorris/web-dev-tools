@@ -31,8 +31,8 @@
       "chart-paper": {
         "role": "neutral",
         "displayName": "Chart Paper",
-        "canonical": "#eae2b7",
-        "tonalRamp": ["#3d3a28", "#6b6650", "#9a9478", "#c4be9a", "#eae2b7", "#f3eed4", "#f8f5e8", "#fcfbf6"]
+        "canonical": "#f8e7c1",
+        "tonalRamp": ["#3d3a28", "#6b6650", "#9a9478", "#c4be9a", "#f8e7c1", "#fbf1d8", "#fbf6e8", "#fcfbf6"]
       },
       "white": {
         "role": "neutral",

@@ -6,7 +6,7 @@ colors:
   signal-red: "#d62828"
   safety-orange: "#f77f00"
   flag-gold: "#fcbf49"
-  chart-paper: "#eae2b7"
+  chart-paper: "#f8e7c1"
   white: "#ffffff"
   ink: "#2c3e50"
   quiet-ink: "#6c757d"
