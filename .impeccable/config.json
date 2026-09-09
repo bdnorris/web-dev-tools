@@ -1,3 +1,24 @@
 {
-  "buildPath": "code"
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/App.vue"
+        ],
+        "createdAt": "2026-09-09T13:39:02.010Z",
+        "reason": "Agent: DESIGN.md Navigation and fold-out contract specify a 4px Safety Orange leading tick on the unfolded implement, not a card accent"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "rgba(0, 0, 0, 0.1)",
+        "createdAt": "2026-09-09T13:40:15.061Z",
+        "reason": "Agent: DESIGN.md incidental sheet shadow 0 4px 6px rgba(0,0,0,0.1)"
+      }
+    ]
+  }
 }

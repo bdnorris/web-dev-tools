@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-08T21:57:00.000Z",
+  "generatedAt": "2026-09-09T13:55:00.000Z",
   "title": "Design System: Web Dev Tools",
   "extensions": {
     "colorMeta": {
@@ -73,10 +73,11 @@
     },
     "typographyMeta": {
       "display": { "displayName": "Display", "purpose": "Tool titles on the white sheet (2rem / 600)." },
-      "headline": { "displayName": "Headline", "purpose": "Product name in the rail." },
+      "headline": { "displayName": "Headline", "purpose": "Product name in the handle." },
       "title": { "displayName": "Title", "purpose": "Section headings inside a tool." },
       "body": { "displayName": "Body", "purpose": "Descriptions and running UI copy." },
-      "label": { "displayName": "Label", "purpose": "Field labels, units, quiet metadata." }
+      "label": { "displayName": "Label", "purpose": "Field labels, units, quiet metadata." },
+      "mono": { "displayName": "Mono", "purpose": "Copyable values, CSS, formulas, diffs, URLs." }
     },
     "shadows": [
       {
@@ -98,13 +99,13 @@
     "motion": [
       {
         "name": "ease-standard",
-        "value": "all 0.3s ease",
-        "purpose": "Default state change on buttons, nav, inputs, and tiles."
+        "value": "200ms ease-out",
+        "purpose": "Chrome state changes on the handle, remnant, and implements."
       },
       {
-        "name": "ease-fast",
-        "value": "0.2s ease",
-        "purpose": "Small text controls (clear, quiet hover)."
+        "name": "unfold",
+        "value": "clip-path inset 200ms ease-out",
+        "purpose": "Sheet unfolds from the handle’s right edge. Reduced motion is an instant swap."
       }
     ],
     "breakpoints": [
@@ -149,17 +150,19 @@
       "name": "Tool Sheet",
       "kind": "card",
       "refersTo": "card-tool",
-      "description": "White 12px sheet where a tool's interior lives.",
+      "description": "White sheet docked flush to the handle; 12px on the free corners.",
       "html": "<section class=\"ds-tool\"><h2 class=\"ds-tool-title\">Pixel to Em Converter</h2><p class=\"ds-tool-desc\">Convert pixels to em units based on your base font size.</p></section>",
-      "css": ".ds-tool { background: #ffffff; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-family: 'IBM Plex Sans', sans-serif; color: #2c3e50; } .ds-tool-title { margin: 0 0 0.5rem; color: #003049; font-size: 2rem; font-weight: 600; line-height: 1.2; } .ds-tool-desc { margin: 0; color: #6c757d; font-size: 1.1rem; }"
+      "description": "White sheet docked flush to the handle; 12px on the free corners.",
+      "html": "<section class=\"ds-tool\"><h2 class=\"ds-tool-title\">Pixel to Em Converter</h2><p class=\"ds-tool-desc\">Convert pixels to em units based on your base font size.</p></section>",
+      "css": ".ds-tool { background: #ffffff; border-radius: 0 12px 12px 0; padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-family: 'IBM Plex Sans', sans-serif; color: #2c3e50; } .ds-tool-title { margin: 0 0 0.5rem; color: #003049; font-size: 2rem; font-weight: 600; line-height: 1.2; } .ds-tool-desc { margin: 0; color: #6c757d; font-size: 1rem; }"
     },
     {
-      "name": "Sidebar Nav",
+      "name": "Handle Nav",
       "kind": "nav",
       "refersTo": "nav-button",
-      "description": "Navy rail items; active is Signal Red with an orange leading bar.",
+      "description": "Square navy handle; unfolded implement is Signal Red with a Safety Orange tick and navy gutter.",
       "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-brand\">Web Dev Tools</div><button class=\"ds-nav-btn ds-nav-btn--active\" type=\"button\">Ratio Converter</button><button class=\"ds-nav-btn\" type=\"button\">Pixel to Em</button></nav>",
-      "css": ".ds-nav { background: #003049; color: #ffffff; padding: 2rem 0; width: 280px; font-family: 'IBM Plex Sans', sans-serif; } .ds-nav-brand { padding: 0 2rem; margin-bottom: 2rem; font-size: 1.5rem; font-weight: 600; color: #fcbf49; } .ds-nav-btn { display: block; width: 100%; padding: 1rem 2rem; background: none; border: none; color: #ffffff; text-align: left; cursor: pointer; font-size: 1rem; position: relative; transition: all 0.3s ease; } .ds-nav-btn:hover { background: rgba(255, 255, 255, 0.1); } .ds-nav-btn:focus-visible { outline: 2px solid #f77f00; outline-offset: -4px; } .ds-nav-btn--active { background: #d62828; } .ds-nav-btn--active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f77f00; }"
+      "css": ".ds-nav { background: #003049; color: #ffffff; padding: 1.5rem 0 2rem; width: 13.5rem; border-radius: 0; font-family: 'IBM Plex Sans', sans-serif; } .ds-nav-brand { margin: 0 1rem 1.5rem; padding: 0 0.25rem; font-size: 1.5rem; font-weight: 600; color: #fcbf49; } .ds-nav-btn { display: block; width: 100%; min-height: 44px; padding: 0.65rem 1rem 0.65rem 1.15rem; background: none; border: none; color: #ffffff; text-align: left; cursor: pointer; font-size: 1rem; font-weight: 500; position: relative; transition: background-color 200ms ease-out, color 200ms ease-out; } .ds-nav-btn:hover { background: rgba(255, 255, 255, 0.1); } .ds-nav-btn:focus-visible { outline: 2px solid #f77f00; outline-offset: -4px; } .ds-nav-btn--active { background: #d62828; color: #ffffff; font-weight: 600; } .ds-nav-btn--active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f77f00; box-shadow: 4px 0 0 #003049; }"
     },
     {
       "name": "Category Chip",
@@ -180,22 +183,22 @@
   ],
   "narrative": {
     "northStar": "The Civic Sign Shop",
-    "overview": "This is a sign shop counter at work: dense, practical, slightly loud color, zero atmosphere for its own sake. The suite is a personal in-browser bench, and the chrome should read like wayfinding on a municipal poster — IBM Plex, flat fields, a handful of signal inks — not like a product dashboard.\n\nChart Navy is the chassis (rail, titles, primary fills). Chart Paper is the shop floor. The tool itself sits as a white sheet on that floor. Safety Orange, Signal Red, and Flag Gold are marks: focus, selection, and labels. They do not become moods or atmospheres.\n\nDepth is poster-flat. Color blocks do the layering. Any card shadow in the code is incidental and must not grow into a floating-card system.",
+    "overview": "This is a sign shop counter at work: dense, practical, slightly loud color, zero atmosphere for its own sake. The suite is a personal in-browser bench, and the chrome should read like wayfinding on a municipal poster — IBM Plex, flat fields, a handful of signal inks — not like a product dashboard.\n\nChart Navy is the chassis (handle, titles, primary fills). Chart Paper is the shop floor. The tool itself sits as a white sheet on that floor. Safety Orange, Signal Red, and Flag Gold are marks: focus, selection, and labels. They do not become moods or atmospheres.\n\nDepth is poster-flat. Color blocks do the layering. Any card shadow in the code is incidental and must not grow into a floating-card system.",
     "keyCharacteristics": [
       "One sans (IBM Plex Sans) for all UI; Mono only for values, CSS, and diffs",
       "Navy chassis + cream floor + white sheet; signal colors as marks, never as page fills",
       "Flat poster fields; shadows are leftovers, not the model",
       "12px on the tool sheet, 8px on controls, 4px on chips",
-      "0.3s ease on state changes; no entrance choreography"
+      "200ms ease-out clip unfold on the sheet; reduced motion is an instant swap"
     ],
     "rules": [
       { "name": "The Poster Field Rule", "body": "Chart Navy, Chart Paper, and white are the only full-field colors. Signal Red, Safety Orange, and Flag Gold are marks: they label, select, and focus. If a signal color owns more than a card or a control, it has escaped.", "section": "colors" },
       { "name": "The One Spark Rule", "body": "Safety Orange is the focus/copy spark. It is not a hover fill (that is Signal Red) and not a title color on the cream floor (titles stay Chart Navy).", "section": "colors" },
       { "name": "The One Voice Rule", "body": "IBM Plex Sans is the only UI face. Do not pair a serif or a second grotesque. Mono is reserved for copyable values.", "section": "typography" },
       { "name": "The Fixed-Rem Rule", "body": "Type is stepped in rem (2 / 1.5 / 1.25 / 1 / 0.9). No fluid clamp() headings. Product UI is viewed at a desk, not as a marketing hero.", "section": "typography" },
-      { "name": "The Same-Sheet Rule", "body": "Switching tools must not invent a new page layout. The rail, the paper, and the white sheet stay; only the sheet’s interior changes.", "section": "layout" },
+      { "name": "The Same-Sheet Rule", "body": "Switching tools must not invent a new page layout. The handle, the paper, and the white sheet stay; only the sheet’s interior changes.", "section": "layout" },
       { "name": "The Color-Does-Depth Rule", "body": "If you need a layer, change the field (navy / paper / white / inset paper). Do not introduce glass, blur, or a shadow scale.", "section": "elevation" },
-      { "name": "The Sheet-Then-Control Rule", "body": "12px is the sheet. 8px is the control. Do not round the rail. Do not pill buttons.", "section": "shapes" }
+      { "name": "The Sheet-Then-Control Rule", "body": "12px is the sheet. 8px is the control. Do not round the handle. Do not pill buttons.", "section": "shapes" }
     ],
     "dos": [
       "Do keep Chart Navy as the chassis and Chart Paper as the floor; put work on a white sheet.",
@@ -208,7 +211,7 @@
       "Don't drift into SaaS: no glass, no purple-blue gradients, no Inter as display, no floating-card dashboards.",
       "Don't introduce a second type family or a fluid display heading.",
       "Don't fill large regions with Signal Red, Safety Orange, or Flag Gold.",
-      "Don't pill buttons or round the navy rail.",
+      "Don't pill buttons or round the navy handle.",
       "Don't build a shadow elevation scale; if a layer is needed, change the field color."
     ]
   }

@@ -44,6 +44,12 @@ typography:
     fontWeight: 500
     lineHeight: 1.4
     letterSpacing: "normal"
+  mono:
+    fontFamily: "IBM Plex Mono, Monaco, Menlo, Ubuntu Mono, monospace"
+    fontSize: "0.9rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
 rounded:
   sm: "4px"
   md: "6px"
@@ -56,7 +62,8 @@ spacing:
   lg: "1.5rem"
   xl: "2rem"
   section: "2.5rem"
-  sidebar: "280px"
+  handle: "13.5rem"
+  remnant: "2.75rem"
 components:
   button-primary:
     backgroundColor: "{colors.chart-navy}"
@@ -96,11 +103,11 @@ components:
   nav-button:
     backgroundColor: "transparent"
     textColor: "{colors.white}"
-    padding: "1rem 2rem"
+    padding: "0.65rem 1rem 0.65rem 1.15rem"
   nav-button-active:
     backgroundColor: "{colors.signal-red}"
     textColor: "{colors.white}"
-    padding: "1rem 2rem"
+    padding: "0.65rem 1rem 0.65rem 1.15rem"
   chip:
     backgroundColor: "{colors.flag-gold}"
     textColor: "{colors.safety-orange}"
@@ -121,7 +128,7 @@ components:
 
 This is a sign shop counter at work: dense, practical, slightly loud color, zero atmosphere for its own sake. The suite is a personal in-browser bench, and the chrome should read like wayfinding on a municipal poster — IBM Plex, flat fields, a handful of signal inks — not like a product dashboard.
 
-Chart Navy is the chassis (rail, titles, primary fills). Chart Paper is the shop floor. The tool itself sits as a white sheet on that floor. Safety Orange, Signal Red, and Flag Gold are marks: focus, selection, and labels. They do not become moods or atmospheres.
+Chart Navy is the chassis (handle, titles, primary fills). Chart Paper is the shop floor. The tool itself sits as a white sheet on that floor. Safety Orange, Signal Red, and Flag Gold are marks: focus, selection, and labels. They do not become moods or atmospheres.
 
 Depth is poster-flat. Color blocks do the layering. Any card shadow in the code is incidental and must not grow into a floating-card system.
 
@@ -131,7 +138,7 @@ Depth is poster-flat. Color blocks do the layering. Any card shadow in the code 
 - Navy chassis + cream floor + white sheet; signal colors as marks, never as page fills
 - Flat poster fields; shadows are leftovers, not the model
 - 12px on the tool sheet, 8px on controls, 4px on chips
-- 0.3s ease on state changes; no entrance choreography
+- 200ms ease-out clip unfold on the sheet; reduced motion is an instant swap
 
 ## Colors
 
@@ -141,7 +148,7 @@ Signal inks on cream stock. The palette is loud so the chrome can stay plain.
 - **Chart Navy**: Chassis and authority. Sidebar fill, tool titles, primary button fills, decimal result cards. The only color allowed to own a large region besides Chart Paper and white.
 
 ### Secondary
-- **Signal Red**: Selection and commit-hover. Active nav, primary/copy hover, the hamburger hover. Not a page fill, not body text.
+- **Signal Red**: Selection and commit-hover. Unfolded implement, primary/copy hover, the folded-handle remnant hover. Not a page fill, not body text.
 
 ### Tertiary
 - **Safety Orange**: Focus and copy. Input focus border, copy buttons, the 4px active-nav tick, conversion arrows. The spark, not a field.
@@ -171,7 +178,7 @@ Signal inks on cream stock. The palette is loud so the chrome can stay plain.
 
 ### Hierarchy
 - **Display** (600, 2rem, ~1.2): Tool titles on the white sheet.
-- **Headline** (600, 1.5rem, ~1.3): Product name in the rail.
+- **Headline** (600, 1.5rem, ~1.3): Product name in the handle.
 - **Title** (600, 1.25rem, ~1.3): Section headings inside a tool.
 - **Body** (400, 1rem, 1.6): Descriptions and running UI copy.
 - **Label** (500, 0.9rem): Field labels, units, quiet metadata. Category chips go smaller (0.75rem, uppercase).
@@ -185,11 +192,11 @@ Result values inside color cards jump to 2rem / 700 — a data shout, not a new 
 
 ## Layout
 
-A fixed Chart Navy rail (280px) on the left; Chart Paper filling the rest; one white tool sheet centered (max 800px, 1100px for Text Compare). Tool padding is 2rem (1.5rem under 768px). Section stacks inside a tool use 2.5rem gaps. Input grids are auto-fit at 200px; result cards auto-fit at 250px.
+A square Chart Navy handle (13.5rem) on the left; Chart Paper filling the rest; one white tool sheet docked flush to the handle (max 800px, 1100px for Text Compare, radius `0 12px 12px 0`). Tool padding is 2rem (1.5rem under 768px). Section stacks inside a tool use 2.5rem gaps. Input grids are auto-fit at 200px; result cards auto-fit at 250px.
 
-At 768px the rail slides off-canvas behind a 44px navy hamburger; the sheet gains top padding for the toggle. At 1024px, main padding tightens; format cards go two-up, then one-up under 768px.
+At 768px the handle folds to a 2.75rem edge remnant with vertical “Tools” lettering; the same unfold opens the list, then the sheet. The remnant stays docked to the sheet. At 1024px, main padding tightens; format cards go two-up, then one-up under 768px.
 
-**The Same-Sheet Rule.** Switching tools must not invent a new page layout. The rail, the paper, and the white sheet stay; only the sheet’s interior changes.
+**The Same-Sheet Rule.** Switching tools must not invent a new page layout. The handle, the paper, and the white sheet stay; only the sheet’s interior changes.
 
 ## Elevation & Depth
 
@@ -205,18 +212,18 @@ Flat poster. Navy against cream is the layer. The white sheet sits on the paper 
 
 ## Shapes
 
-Gently squared poster sheets. The tool and large tiles use a 12px corner. Controls, inputs, inner panels, and result cards use 8px. Chips and small tags use 4px. Copy buttons and code wells use 6px. Circles are reserved for icon-only hits (clear, slider thumb, hamburger rules are 1px bars).
+Gently squared poster sheets. The tool and large tiles use a 12px corner. Controls, inputs, inner panels, and result cards use 8px. Chips and small tags use 4px. Copy buttons and code wells use 6px. Circles are reserved for icon-only hits (clear, slider thumb). The handle stays square.
 
-Borders are 2px Hairline at rest on inputs and outlined tiles; they shift to Safety Orange on focus. No hairline on the navy rail. Active nav has a 4px Safety Orange bar on the inner edge.
+Borders are 2px Hairline at rest on inputs and outlined tiles; they shift to Safety Orange on focus. No hairline on the navy handle. The unfolded implement has a 4px Safety Orange leading bar, separated from the Signal Red fill by a 4px Chart Navy gutter so the tick reads as a mark.
 
-**The Sheet-Then-Control Rule.** 12px is the sheet. 8px is the control. Do not round the rail. Do not pill buttons.
+**The Sheet-Then-Control Rule.** 12px is the sheet. 8px is the control. Do not round the handle. Do not pill buttons.
 
 ## Components
 
 ### Buttons
-Primary fills are Chart Navy on white type, 8px corners, 0.75rem 1rem (download and other commits). Hover and the menu-toggle hover go Signal Red. Copy is Safety Orange at 6px / 0.5rem 1rem, hover Signal Red. Ghost/reset is a 2px Chart Navy stroke on transparent, inverting to navy fill on hover.
+Primary fills are Chart Navy on white type, 8px corners, 0.75rem 1rem (download and other commits). Hover and the remnant hover go Signal Red. Copy is Safety Orange at 6px / 0.5rem 1rem, hover Signal Red. Ghost/reset is a 2px Chart Navy stroke on transparent, inverting to navy fill on hover.
 
-Focus follows the input halo (Safety Orange ring). Transitions are 0.3s ease. Do not add extra shadows to make buttons “pop.”
+Focus follows the input halo (Safety Orange ring). State changes use 200ms ease-out. Do not add extra shadows to make buttons “pop.”
 
 ### Chips
 Flag Gold fill, Safety Orange uppercase type, 4px corners, 0.25rem 0.5rem. Used as category tags on link cards and as format badges. Not selectable filters.
@@ -228,7 +235,7 @@ The tool sheet is white, 12px, 2rem padding, incidental shadow. Inset wells (pre
 White fill, 2px Hairline, 8px, 0.75rem padding. Focus: Safety Orange border plus the 3px orange halo. Units sit outside the field in Quiet Ink. Textareas share the same stroke language and use IBM Plex Mono. Errors are a pale rose well (`#f8d7da` / `#721c24`) — keep them as state, not a fifth brand color.
 
 ### Navigation
-The rail is Chart Navy, full viewport height, 280px. The wordmark is Flag Gold 1.5rem / 600. Nav items are full-bleed text buttons, white, 1rem 2rem, left-aligned. Hover is 10% white wash. Active is Signal Red fill plus a 4px Safety Orange leading bar. Mobile: rail off-canvas, 44px navy toggle, 50% black overlay.
+The handle is Chart Navy, full viewport height, 13.5rem, square. The wordmark is Flag Gold 1.5rem / 600. Nested implements are full-bleed text buttons, white, left-aligned. Hover is 10% white wash. The unfolded implement is Signal Red fill plus a 4px Safety Orange leading bar with a navy gutter. Mobile: handle folds to a 2.75rem square remnant; overlay is navy at 55% opacity. The sheet unfolds from the handle’s right edge (`clip-path` inset, 200ms ease-out).
 
 ### Result Cards (signature)
 Three poster blocks for numeric outcomes (decimal / fraction / percent). They are the loudest objects on a tool sheet. Do not recast them as outlined tiles; the fill is the point.
@@ -249,5 +256,5 @@ Code Slate well, light type, IBM Plex Mono ~0.9rem, 6px corners. The copy contro
 - **Don't** drift into SaaS: no glass, no purple-blue gradients, no Inter as display, no floating-card dashboards.
 - **Don't** introduce a second type family or a fluid display heading.
 - **Don't** fill large regions with Signal Red, Safety Orange, or Flag Gold.
-- **Don't** pill buttons or round the navy rail.
+- **Don't** pill buttons or round the navy handle.
 - **Don't** build a shadow elevation scale; if a layer is needed, change the field color.

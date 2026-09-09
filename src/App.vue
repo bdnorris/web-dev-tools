@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import RatioConverter from './components/RatioConverter.vue'
 import PixelToEm from './components/PixelToEm.vue'
 import LineHeightCalculator from './components/LineHeightCalculator.vue'
@@ -9,7 +9,7 @@ import TextCompare from './components/TextCompare.vue'
 import HelpfulLinks from './components/HelpfulLinks.vue'
 
 const currentTool = ref('ratio')
-const menuOpen = ref(false)
+const handleOpen = ref(false)
 
 const tools = [
   { id: 'ratio', name: 'Ratio Converter', component: RatioConverter },
@@ -21,66 +21,88 @@ const tools = [
   { id: 'helpful-links', name: 'Helpful Links', component: HelpfulLinks }
 ]
 
-const toggleMenu = () => {
-  menuOpen.value = !menuOpen.value
-}
+const activeTool = computed(() => tools.find((tool) => tool.id === currentTool.value))
 
-// Get tool ID from URL hash
 const getToolFromHash = () => {
-  const hash = window.location.hash.substring(1) // Remove the # symbol
-  const validTool = tools.find(tool => tool.id === hash)
-  return validTool ? hash : 'ratio' // Default to 'ratio' if invalid hash
+  const hash = window.location.hash.substring(1)
+  const validTool = tools.find((tool) => tool.id === hash)
+  return validTool ? hash : 'ratio'
 }
 
-// Update URL hash when tool changes
 const updateHash = (toolId) => {
   window.location.hash = toolId
 }
 
-// Handle hash changes (back/forward navigation)
 const handleHashChange = () => {
   const toolId = getToolFromHash()
   if (toolId !== currentTool.value) {
     currentTool.value = toolId
-    menuOpen.value = false
+    handleOpen.value = false
   }
 }
 
 const selectTool = (toolId) => {
   currentTool.value = toolId
-  menuOpen.value = false
+  handleOpen.value = false
   updateHash(toolId)
 }
 
-// Initialize tool from URL hash on load
+const toggleHandle = () => {
+  handleOpen.value = !handleOpen.value
+}
+
+const closeHandle = () => {
+  handleOpen.value = false
+}
+
+const onKeydown = (event) => {
+  if (event.key === 'Escape' && handleOpen.value) {
+    handleOpen.value = false
+  }
+}
+
 onMounted(() => {
   currentTool.value = getToolFromHash()
-  
-  // Listen for hash changes (back/forward navigation)
   window.addEventListener('hashchange', handleHashChange)
+  window.addEventListener('keydown', onKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('hashchange', handleHashChange)
+  window.removeEventListener('keydown', onKeydown)
 })
 </script>
 
 <template>
-  <div class="app">
-    <!-- Mobile menu button -->
-    <button class="menu-toggle" @click="toggleMenu" aria-label="Toggle menu">
-      <span></span>
-      <span></span>
-      <span></span>
+  <div class="bench">
+    <a class="skip-link" href="#tool">Skip to tool</a>
+
+    <button
+      class="handle-stub"
+      type="button"
+      :class="{ 'handle-stub--tucked': handleOpen }"
+      :aria-expanded="handleOpen"
+      aria-controls="tool-handle"
+      @click="toggleHandle"
+    >
+      <span class="handle-stub__label">Tools</span>
     </button>
 
-    <!-- Sidebar -->
-    <aside class="sidebar" :class="{ 'sidebar--open': menuOpen }">
-      <div class="sidebar__header">
-        <h1 class="sidebar__title">Web Dev Tools</h1>
-      </div>
-      <nav class="sidebar__nav">
-        <ul class="nav-list">
-          <li v-for="tool in tools" :key="tool.id" class="nav-item">
-            <button 
+    <aside
+      id="tool-handle"
+      class="handle"
+      :class="{ 'handle--open': handleOpen }"
+    >
+      <h1 class="handle__wordmark">Web Dev Tools</h1>
+      <nav class="handle__nav" aria-label="Tools">
+        <ul class="implements">
+          <li v-for="tool in tools" :key="tool.id">
+            <button
+              type="button"
+              class="implement"
+              :class="{ 'implement--open': currentTool === tool.id }"
+              :aria-current="currentTool === tool.id ? 'page' : undefined"
               @click="selectTool(tool.id)"
-              :class="['nav-button', { 'nav-button--active': currentTool === tool.id }]"
             >
               {{ tool.name }}
             </button>
@@ -89,192 +111,282 @@ onMounted(() => {
       </nav>
     </aside>
 
-    <!-- Main content -->
-    <main class="main" :class="{ 'main--menu-open': menuOpen }">
-      <div class="tool-container" :class="{ 'tool-container--wide': currentTool === 'text-compare' }">
-        <component :is="tools.find(t => t.id === currentTool)?.component" />
+    <main id="tool" class="stage" :class="{ 'stage--wide': currentTool === 'text-compare' }">
+      <div class="sheet" :key="currentTool">
+        <component :is="activeTool?.component" />
       </div>
     </main>
 
-    <!-- Overlay for mobile -->
-    <div v-if="menuOpen" class="overlay" @click="toggleMenu"></div>
+    <div
+      v-if="handleOpen"
+      class="overlay"
+      @click="closeHandle"
+    ></div>
   </div>
 </template>
 
 <style>
 :root {
-  --color-primary: #003049;
-  --color-secondary: #d62828;
-  --color-accent: #f77f00;
-  --color-accent-light: #fcbf49;
-  --color-background: #eae2b7;
+  --color-chart-navy: #003049;
+  --color-signal-red: #d62828;
+  --color-safety-orange: #f77f00;
+  --color-flag-gold: #fcbf49;
+  --color-chart-paper: #eae2b7;
   --color-white: #ffffff;
-  --color-text: #2c3e50;
-  --color-text-light: #6c757d;
-  --sidebar-width: 280px;
+  --color-ink: #2c3e50;
+  --color-quiet-ink: #6c757d;
+  --color-hairline: #e1e5e9;
+  --color-inset-paper: #f8f9fa;
+  --color-code-slate: #2d3748;
+  --color-primary: var(--color-chart-navy);
+  --color-secondary: var(--color-signal-red);
+  --color-accent: var(--color-safety-orange);
+  --color-accent-light: var(--color-flag-gold);
+  --color-background: var(--color-chart-paper);
+  --color-text: var(--color-ink);
+  --color-text-light: var(--color-quiet-ink);
+  --handle-width: 13.5rem;
+  --ease-standard: 200ms ease-out;
 }
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: var(--color-background);
-  color: var(--color-text);
-  line-height: 1.6;
+html {
+  scrollbar-color: var(--color-chart-navy) var(--color-chart-paper);
 }
 
-.app {
+body {
+  margin: 0;
+  font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--color-chart-paper);
+  color: var(--color-ink);
+  line-height: 1.6;
+  caret-color: var(--color-safety-orange);
+}
+
+::selection {
+  background: var(--color-safety-orange);
+  color: var(--color-chart-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-safety-orange);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  inset-block-start: -4rem;
+  z-index: 2000;
+  padding: 0.5rem 1rem;
+  background: var(--color-chart-navy);
+  color: var(--color-white);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  inset-block-start: 1rem;
+}
+
+.bench {
   display: flex;
   min-height: 100vh;
   position: relative;
 }
 
-.menu-toggle {
+.handle-stub {
   display: none;
   position: fixed;
-  inset-block-start: 1rem;
-  inset-inline-end: 1rem;
+  inset-block: 0;
+  inset-inline-start: 0;
   z-index: 1001;
-  background: var(--color-primary);
+  width: 2.75rem;
+  padding: 0;
+  background: var(--color-chart-navy);
+  color: var(--color-flag-gold);
   border: none;
-  border-radius: 8px;
-  width: 44px;
-  height: 44px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color var(--ease-standard);
 }
 
-.menu-toggle span {
-  width: 20px;
-  height: 2px;
-  background: var(--color-white);
-  border-radius: 1px;
-  transition: all 0.3s ease;
-}
-
-.menu-toggle:hover {
-  background: var(--color-secondary);
-}
-
-.sidebar {
-  width: var(--sidebar-width);
-  background: var(--color-primary);
+.handle-stub:hover,
+.handle-stub:focus-visible {
+  background: var(--color-signal-red);
   color: var(--color-white);
-  padding: 2rem 0;
+}
+
+.handle-stub--tucked {
+  visibility: hidden;
+}
+
+.handle-stub__label {
+  display: block;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding-block: 1.5rem;
+}
+
+.handle {
+  width: var(--handle-width);
+  background: var(--color-chart-navy);
+  color: var(--color-white);
+  padding: 1.5rem 0 2rem;
   position: fixed;
-  left: 0;
-  top: 0;
+  inset-inline-start: 0;
+  inset-block-start: 0;
   height: 100vh;
   overflow-y: auto;
-  transition: transform 0.3s ease;
   z-index: 1000;
+  border-radius: 0;
 }
 
-.sidebar__header {
-  padding: 0 2rem;
-  margin-bottom: 2rem;
-}
-
-.sidebar__title {
-  margin: 0;
+.handle__wordmark {
+  margin: 0 1rem 1.5rem;
+  padding: 0 0.25rem;
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--color-accent-light);
+  line-height: 1.3;
+  color: var(--color-flag-gold);
 }
 
-.nav-list {
+.handle__nav {
+  padding: 0;
+}
+
+.implements {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.nav-item {
-  margin-bottom: 0.5rem;
+.implements li + li {
+  margin-block-start: 0.15rem;
 }
 
-.nav-button {
+.implement {
   width: 100%;
-  padding: 1rem 2rem;
+  min-height: 44px;
+  padding: 0.65rem 1rem 0.65rem 1.15rem;
   background: none;
   border: none;
   color: var(--color-white);
   text-align: left;
   cursor: pointer;
+  font-family: inherit;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  line-height: 1.3;
+  transition: background-color var(--ease-standard), color var(--ease-standard);
   position: relative;
 }
 
-.nav-button:hover {
+.implement:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.nav-button--active {
-  background: var(--color-secondary);
+.implement:focus-visible {
+  outline-offset: -4px;
+}
+
+.implement--open {
+  background: var(--color-signal-red);
   color: var(--color-white);
+  font-weight: 600;
 }
 
-.nav-button--active::before {
-  content: '';
+.implement--open::before {
+  content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
+  inset-block: 0;
+  inset-inline-start: 0;
   width: 4px;
-  background: var(--color-accent);
+  background: var(--color-safety-orange);
+  box-shadow: 4px 0 0 var(--color-chart-navy);
 }
 
-.main {
+.stage {
   flex: 1;
-  margin-left: var(--sidebar-width);
-  padding: 2rem;
-  transition: margin-left 0.3s ease;
+  margin-inline-start: var(--handle-width);
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  min-width: 0;
 }
 
-.tool-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.tool-container--wide {
+.stage--wide .sheet {
   max-width: 1100px;
+}
+
+.sheet {
+  max-width: 800px;
+  min-height: calc(100vh - 3rem);
+  background: var(--color-white);
+  color: var(--color-ink);
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  animation: unfold var(--ease-standard);
+  transform-origin: left center;
+}
+
+@keyframes unfold {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    animation: none;
+  }
+
+  .implement,
+  .handle-stub,
+  .handle {
+    transition: none;
+  }
 }
 
 .overlay {
   display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  inset: 0;
+  background: rgba(0, 48, 73, 0.55);
   z-index: 999;
 }
 
-/* Mobile styles */
 @media (max-width: 768px) {
-  .menu-toggle {
+  .handle-stub {
     display: flex;
   }
 
-  .sidebar {
+  .handle {
     transform: translateX(-100%);
+    transition: transform var(--ease-standard);
   }
 
-  .sidebar--open {
+  .handle--open {
     transform: translateX(0);
   }
 
-  .main {
-    margin-left: 0;
-    padding: 5rem 1rem 2rem;
+  .stage {
+    margin-inline-start: 0;
+    padding: 1.5rem 1rem 1.5rem 3.5rem;
+  }
+
+  .sheet {
+    max-width: none;
+    min-height: calc(100vh - 3rem);
+    border-radius: 0 12px 12px 0;
   }
 
   .overlay {
@@ -282,19 +394,18 @@ body {
   }
 }
 
-/* Tablet styles */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .main {
-    padding: 2rem 1.5rem;
+  .stage {
+    padding: 1.5rem 1.25rem 1.5rem 0;
   }
 }
 
 /* Shared Component Styles */
 .tool {
-  background: var(--color-white);
-  border-radius: 12px;
+  background: transparent;
+  border-radius: 0;
   padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 .tool__header {
@@ -302,21 +413,21 @@ body {
 }
 
 .tool__title {
-  color: var(--color-primary);
+  color: var(--color-chart-navy);
   margin: 0 0 0.5rem 0;
   font-size: 2rem;
   font-weight: 600;
 }
 
 .tool__description {
-  color: var(--color-text-light);
+  color: var(--color-quiet-ink);
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .section-title {
-  color: var(--color-primary);
-  margin: 0 0 1rem 0;
+  color: var(--color-chart-navy);
+  margin: 1.5rem 0 1rem 0;
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -329,7 +440,7 @@ body {
 
 .input-label {
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--color-ink);
   font-size: 0.9rem;
 }
 
@@ -342,10 +453,13 @@ body {
 
 .input {
   padding: 0.75rem;
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--color-hairline);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.3s ease;
+  font-family: inherit;
+  color: var(--color-ink);
+  background: var(--color-white);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .input--with-unit {
@@ -370,21 +484,20 @@ body {
 
 .input:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: var(--color-safety-orange);
   box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1);
 }
 
 .unit {
-  color: var(--color-text-light);
+  color: var(--color-quiet-ink);
   font-weight: 500;
   margin-inline-start: 0.75em;
   pointer-events: none;
 }
 
-/* Preview Box Styles */
 .preview-box {
-  background: #f8f9fa;
-  border: 1px solid #e1e5e9;
+  background: var(--color-inset-paper);
+  border: 1px solid var(--color-hairline);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 1em 0 1em 0;
@@ -392,12 +505,12 @@ body {
 
 .preview-box__title {
   margin: 0 0 1em 0;
-  color: var(--color-primary);
-  font-size: 1.1rem;
+  color: var(--color-chart-navy);
+  font-size: 1.25rem;
 }
 
 .code-preview {
-  background: #2d3748;
+  background: var(--color-code-slate);
   color: #e2e8f0;
   padding: 1rem;
   border-radius: 6px;
@@ -410,34 +523,37 @@ body {
 
 .calculation-display {
   padding: 1rem;
-  background: var(--color-background);
+  background: var(--color-chart-paper);
   border-radius: 8px;
-  border-left: 4px solid var(--color-accent);
 }
 
 .calculation__formula {
   font-family: 'IBM Plex Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 1rem;
-  color: var(--color-primary);
+  color: var(--color-chart-navy);
   font-weight: 600;
 }
 
 .copy-button {
-  background: var(--color-accent);
+  background: var(--color-safety-orange);
   color: var(--color-white);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
+  font-family: inherit;
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 
 .copy-button:hover {
-  background: var(--color-secondary);
+  background: var(--color-signal-red);
 }
 
-/* Grid Layouts */
+.copy-button:focus-visible {
+  outline-offset: 2px;
+}
+
 .inputs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -450,7 +566,6 @@ body {
   gap: 1.5rem;
 }
 
-/* Result Cards */
 .result-card {
   padding: 1.5rem;
   border-radius: 8px;
@@ -458,17 +573,17 @@ body {
 }
 
 .result-card--primary {
-  background: var(--color-primary);
+  background: var(--color-chart-navy);
   color: var(--color-white);
 }
 
 .result-card--secondary {
-  background: var(--color-secondary);
+  background: var(--color-signal-red);
   color: var(--color-white);
 }
 
 .result-card--accent {
-  background: var(--color-accent);
+  background: var(--color-safety-orange);
   color: var(--color-white);
 }
 
@@ -482,35 +597,35 @@ body {
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .result-description {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   opacity: 0.8;
 }
 
-/* Mobile Responsive Adjustments */
 @media (max-width: 768px) {
   .tool {
     padding: 1.5rem;
   }
-  
+
   .inputs-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .results-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .input--medium,
   .input--large {
     width: 100%;
     max-width: 200px;
   }
-  
+
   .code-preview {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 }
 </style>
