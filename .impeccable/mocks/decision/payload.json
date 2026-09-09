@@ -1,0 +1,174 @@
+{
+  "title": "Choose the bench structure",
+  "question": "The roll assigned Same-frame inventory. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Same-frame inventory",
+      "kicker": "THE ROLL",
+      "lineage": "this suite's existing chrome",
+      "thesis": "The bench rests as a compact inventory; opening a tool deploys it in the same frame.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy identity bar", "cream field", "white tool card"],
+      "viewport": "A compact inventory of the seven tools fills the shell; choosing one deploys that tool's existing interior into the same stage, with collapse returning to inventory.",
+      "risk": "The inventory rest can read as a home page if collapse is not instant.",
+      "raised": [
+        { "from": "Miura packet", "raise": "Compact rest deploys one tool into the same field; collapse returns." },
+        { "from": "split-flap board", "raise": "Chrome never restyles; only the working cell changes." },
+        { "from": "creator-hardware bench", "raise": "Copy is the one obvious commit; tools group by job." }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "identity", "x": 0, "y": 0, "w": 12, "h": 1 },
+          { "label": "type cluster", "x": 0, "y": 1, "w": 6, "h": 5, "accent": true },
+          { "label": "image convert", "x": 6, "y": 1, "w": 6, "h": 5 },
+          { "label": "text and links", "x": 0, "y": 6, "w": 12, "h": 4 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/assigned.webp"
+    },
+    {
+      "id": "grouped-rail",
+      "label": "Clustered rail",
+      "lineage": "this suite's existing chrome",
+      "thesis": "Related converters sit as families in a persistent rail; one tool occupies the stage.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy grouped rail", "cream field", "white tool card"],
+      "viewport": "A left rail clustered into Type, Assets, and Text; the current tool's existing interior fills the stage without restyling the frame.",
+      "risk": "Clustering can hide a tool you reach for by name.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "grouped tools", "x": 0, "y": 0, "w": 3, "h": 10, "accent": true },
+          { "label": "current tool", "x": 3, "y": 0, "w": 9, "h": 10 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/grouped-rail.webp"
+    },
+    {
+      "id": "instrument-strip",
+      "label": "Instrument strip",
+      "lineage": "this suite's existing chrome",
+      "thesis": "Tools are a horizontal instrument bar; the stage below never becomes a different place.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy instrument bar", "cream field", "white tool card"],
+      "viewport": "Identity and all seven tools share one top strip; the tool interior fills the remaining canvas as a single stage.",
+      "risk": "A growing set overflows a horizontal strip faster than a rail.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "instrument strip", "x": 0, "y": 0, "w": 12, "h": 2, "accent": true },
+          { "label": "current tool", "x": 0, "y": 2, "w": 12, "h": 8 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/instrument-strip.webp"
+    },
+    {
+      "id": "challenger-creator-hardware-bench",
+      "label": "Desk instrument",
+      "verdict": "competitive",
+      "lineage": "creator-hardware desk instrument",
+      "thesis": "Tools are grouped keys on one chassis; the current tool is the display.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy chassis", "cream field", "white tool card", "one commit control"],
+      "viewport": "A grouped key strip switches tools; the existing tool interior fills the display; copy sits as the one commit control.",
+      "case": "Wins on audience identification as a desk bench; loses on clarity because these tools are full forms, not single keys.",
+      "risk": "A key-grid can fight the full-form interiors we must keep.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "instrument keys", "x": 0, "y": 0, "w": 12, "h": 2, "accent": true },
+          { "label": "current tool", "x": 0, "y": 2, "w": 10, "h": 8 },
+          { "label": "copy", "x": 10, "y": 2, "w": 2, "h": 8 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/challenger-creator-hardware.webp",
+      "hero": "https://impeccable.style/worlds/cards/design-canon-creator-hardware-bench-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/design-canon-creator-hardware-bench.webp"
+    },
+    {
+      "id": "challenger-vertical-video-feed-surface",
+      "label": "Full-viewport snap",
+      "verdict": "declined",
+      "lineage": "vertical media surface",
+      "thesis": "One tool owns the whole viewport; the next is one snap away.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "white tool card"],
+      "viewport": "A single tool fills the frame; flicking snaps to the next complete tool.",
+      "case": "Fuses poorly: you do not browse converters by flicking.",
+      "kept": "Once open, the current tool owns the stage.",
+      "risk": "Turns a named lookup into a feed.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-vertical-video-feed-surface-hero.webp"
+    },
+    {
+      "id": "challenger-split-flap-concourse",
+      "label": "Live board",
+      "verdict": "declined",
+      "lineage": "split-flap concourse board",
+      "thesis": "Chrome columns never move; only the working row updates.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy frame", "cream field"],
+      "viewport": "A ruled board of tools; switching flaps the content cell, not the page.",
+      "case": "The unmoving grid is useful; the concourse metaphor is not this user's scene.",
+      "kept": "Chrome never restyles when the working cell changes.",
+      "risk": "Reads as a departure board, not a workbench.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-split-flap-concourse-hero.webp"
+    },
+    {
+      "id": "challenger-hypercard-stack-shoebox",
+      "label": "Card stack",
+      "verdict": "declined",
+      "lineage": "HyperCard shoebox stack",
+      "thesis": "Each tool is an addressable card; back retraces the exact trail.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["white cards", "cream field"],
+      "viewport": "Seven linked cards with hash addresses; back walks the trail.",
+      "case": "Loses on clarity: a stack of cards is the seven-pages problem.",
+      "kept": "Hash URLs stay addressable; back retraces exactly.",
+      "risk": "Preserves the fragmentation this brief is here to kill.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-hypercard-stack-shoebox-hero.webp"
+    },
+    {
+      "id": "challenger-miura-orbit-sheet",
+      "label": "Deployable sheet",
+      "verdict": "declined",
+      "lineage": "Miura-fold packet",
+      "thesis": "A compact packet deploys one cell into a working field.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "white tool card"],
+      "viewport": "Inventory as a compact packet; opening a tool deploys that cell across the stage.",
+      "case": "The deploy/collapse mechanic is the raise; the origami world is not this bench.",
+      "kept": "Compact rest deploys one tool; collapse returns.",
+      "risk": "The fold reads as spectacle on a CSS utility bench.",
+      "hero": "https://impeccable.style/worlds/cards/paper-folds-pleats-deployable-miura-orbit-sheet-hero.webp"
+    },
+    {
+      "id": "challenger-mesophotic-deep-dive",
+      "label": "Depth axis",
+      "verdict": "declined",
+      "lineage": "mesophotic deep dive",
+      "thesis": "You descend from inventory into a tool as depth.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy field", "cream field"],
+      "viewport": "A vertical dive from overview into a tool, with an explicit turnaround back.",
+      "case": "Descending is navigation into a destination, which fights one bench.",
+      "kept": "Collapse back to inventory is a first-class control, not browser back.",
+      "risk": "Makes switching tools feel like leaving the surface.",
+      "hero": "https://impeccable.style/worlds/cards/rivers-tides-ocean-depths-mesophotic-deep-dive-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": false,
+  "steer": true
+}

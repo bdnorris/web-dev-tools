@@ -1,0 +1,162 @@
+{
+  "title": "Choose the bench structure",
+  "question": "Bolder hand. The roll assigned Summoned stage. Keep it, take an alternate, or re-roll.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Summoned stage",
+      "kicker": "THE ROLL",
+      "lineage": "this suite's existing chrome",
+      "thesis": "The stage never moves; a persistent summon field calls a tool into it by name.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy identity bar", "cream field", "white tool card"],
+      "viewport": "Identity and a summon field sit in an unmoving chrome; the current tool's existing interior fills the stage; hash still lands on a tool.",
+      "risk": "A growing set becomes unbrowseable if summon is the only way to notice a tool exists.",
+      "raised": [
+        { "from": "seven-segment mask", "raise": "Place never moves; only which tool is lit in the stage." },
+        { "from": "variety telop", "raise": "Switching a tool does not rearrange the chrome." }
+      ],
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "identity", "x": 0, "y": 0, "w": 4, "h": 1 },
+          { "label": "summon field", "x": 4, "y": 0, "w": 8, "h": 1, "accent": true },
+          { "label": "current tool", "x": 0, "y": 1, "w": 12, "h": 9 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/r2-assigned.webp"
+    },
+    {
+      "id": "drafting-arm",
+      "label": "Drafting arm",
+      "lineage": "this suite's existing chrome",
+      "thesis": "Identity is a clamp that never leaves the board; switching tools changes the instrument in the arm.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy clamp bar", "cream field", "white tool card"],
+      "viewport": "A persistent arm along one edge holds identity and the tool switcher; the paper — the current tool interior — stays registered in the same gates.",
+      "risk": "The arm can read as decoration if the switcher is not the obvious instrument change.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "clamp arm", "x": 0, "y": 0, "w": 12, "h": 2, "accent": true },
+          { "label": "registered tool", "x": 1, "y": 2, "w": 10, "h": 8 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/r2-drafting-arm.webp"
+    },
+    {
+      "id": "fold-out-handle",
+      "label": "Fold-out handle",
+      "lineage": "this suite's existing chrome",
+      "thesis": "One tool unfolds from a persistent handle; the others stay nested until called.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy handle", "cream field", "white tool card"],
+      "viewport": "A compact handle of identity plus nested tools sits on one edge; the active tool unfolds into the same stage and folds back without leaving.",
+      "risk": "Nesting can hide tools you reach for by name, the same failure clustering had.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "handle", "x": 0, "y": 0, "w": 2, "h": 10, "accent": true },
+          { "label": "unfolded tool", "x": 2, "y": 0, "w": 10, "h": 10 }
+        ]
+      },
+      "comp": ".impeccable/mocks/decision/r2-fold-out.webp"
+    },
+    {
+      "id": "challenger-seven-segment-alarm-clock",
+      "label": "Lit-cell mask",
+      "verdict": "declined",
+      "lineage": "seven-segment display family",
+      "thesis": "The layout is a rigid mask of cells; place never moves, only which cell is lit.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy mask", "cream field", "ghost inactive cells"],
+      "viewport": "Every tool occupies a fixed cell in one mask; inactive tools remain as ghosts; the active interior fills the stage.",
+      "case": "The unmoving mask is the raise; a segment alphabet is not how these forms work.",
+      "kept": "Place never moves; only which tool is lit.",
+      "risk": "Reads as a clock face, not a CSS bench.",
+      "hero": "https://impeccable.style/worlds/cards/signals-instruments-seven-segment-alarm-clock-hero.webp"
+    },
+    {
+      "id": "challenger-ascii-live-scene-render",
+      "label": "Glyph grid",
+      "verdict": "declined",
+      "lineage": "ASCII live scene render",
+      "thesis": "The world is one character grid; you move the camera and the view re-renders in place.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "mono grid"],
+      "viewport": "The whole shell is one grid; switching tools re-renders the stage without changing place.",
+      "case": "Loses on audience identification: a glyph sculpture is not this bench.",
+      "kept": "Results live in the same grid as the work, not on a separate page.",
+      "risk": "Turns a utility bench into a demo.",
+      "hero": "https://impeccable.style/worlds/cards/medium-native-ascii-live-scene-render-hero.webp"
+    },
+    {
+      "id": "challenger-sneaker-box-stacks",
+      "label": "Stacked cases",
+      "verdict": "declined",
+      "lineage": "sneaker archive wall",
+      "thesis": "Tools are stacked cases; you pull one into the working position and open it.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["navy labels", "cream field", "white tool card"],
+      "viewport": "A wall of labeled cases; the selected one slides into the stage while others stay stacked as labels.",
+      "case": "Pulling a case open is still destination navigation, which this brief forbids.",
+      "kept": "Unused tools remain visible as labels while one occupies the stage.",
+      "risk": "The lid-open is a page change wearing a box.",
+      "hero": "https://impeccable.style/worlds/cards/textiles-weave-drape-fashion-sneaker-box-stacks-hero.webp"
+    },
+    {
+      "id": "challenger-cloud-quarry",
+      "label": "Cut blocks",
+      "verdict": "declined",
+      "lineage": "cloud quarry",
+      "thesis": "You cut a working block from a mass and handle it while it stays live.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "navy cuts"],
+      "viewport": "Tools as blocks in one mass; the working block stays live on the stage without a page change.",
+      "case": "Surreal quarry topology fails audience identification and product clarity.",
+      "kept": "The working tool stays live while you switch; nothing unmounts into a new place.",
+      "risk": "Spectacle without a task map.",
+      "hero": "https://impeccable.style/worlds/cards/dream-surreal-impossible-worlds-cloud-quarry-hero.webp"
+    },
+    {
+      "id": "challenger-streaming-title-card-wall",
+      "label": "Focus wall",
+      "verdict": "declined",
+      "lineage": "streaming catalog wall",
+      "thesis": "Rows of tools; the focused one expands and the rest of the wall dims.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "white tiles"],
+      "viewport": "A wall of tool tiles; focus expands one interior; neighbors dim in place.",
+      "case": "This is the eliminated inventory, reworded as a catalog wall.",
+      "kept": "Unused tools recede without becoming a different place.",
+      "risk": "Browses a library instead of working a bench.",
+      "hero": "https://impeccable.style/worlds/cards/pop-culture-shelf-streaming-title-card-wall-hero.webp"
+    },
+    {
+      "id": "challenger-variety-telop-caption-field",
+      "label": "Free captions",
+      "verdict": "declined",
+      "lineage": "variety-show telop field",
+      "thesis": "Chrome is free-placed labels keyed to the active tool, not a nav band.",
+      "palette": ["#003049", "#eae2b7", "#d62828", "#f77f00", "#fcbf49"],
+      "materials": ["cream field", "navy labels"],
+      "viewport": "The tool interior fills the frame; identity and switcher land as captions that do not occupy a lower-third.",
+      "case": "Free-placed switching is worse for a named lookup than a stable control.",
+      "kept": "Switching a tool does not rearrange the chrome.",
+      "risk": "Makes a utility feel like a broadcast overlay.",
+      "hero": "https://impeccable.style/worlds/cards/variety-telop-caption-field-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": ["safer", "bolder"]
+  },
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  },
+  "canon": false,
+  "steer": true
+}

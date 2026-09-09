@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-08T21:57:00.000Z",
+  "title": "Design System: Web Dev Tools",
+  "extensions": {
+    "colorMeta": {
+      "chart-navy": {
+        "role": "primary",
+        "displayName": "Chart Navy",
+        "canonical": "#003049",
+        "tonalRamp": ["#001018", "#001c2a", "#003049", "#1a4d66", "#3d6f88", "#6a96a3", "#a3c0cc", "#d7e6ed"]
+      },
+      "signal-red": {
+        "role": "secondary",
+        "displayName": "Signal Red",
+        "canonical": "#d62828",
+        "tonalRamp": ["#4a0c0c", "#7a1414", "#a81e1e", "#d62828", "#e25555", "#ee8888", "#f5b8b8", "#fbe6e6"]
+      },
+      "safety-orange": {
+        "role": "tertiary",
+        "displayName": "Safety Orange",
+        "canonical": "#f77f00",
+        "tonalRamp": ["#4a2a00", "#7a4500", "#b35f00", "#f77f00", "#ff9a33", "#ffb866", "#ffd199", "#ffe8cc"]
+      },
+      "flag-gold": {
+        "role": "tertiary",
+        "displayName": "Flag Gold",
+        "canonical": "#fcbf49",
+        "tonalRamp": ["#4a3708", "#7a5c12", "#b38924", "#fcbf49", "#ffd06e", "#ffdc94", "#ffe8ba", "#fff4e0"]
+      },
+      "chart-paper": {
+        "role": "neutral",
+        "displayName": "Chart Paper",
+        "canonical": "#eae2b7",
+        "tonalRamp": ["#3d3a28", "#6b6650", "#9a9478", "#c4be9a", "#eae2b7", "#f3eed4", "#f8f5e8", "#fcfbf6"]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "#ffffff",
+        "tonalRamp": ["#2c3e50", "#6c757d", "#9aa3ab", "#c5c9ce", "#e1e5e9", "#f8f9fa", "#ffffff", "#ffffff"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#2c3e50",
+        "tonalRamp": ["#101820", "#1c2833", "#2c3e50", "#4a5a6c", "#6c7c8c", "#9aa6b2", "#c5d0d6", "#e8eef2"]
+      },
+      "quiet-ink": {
+        "role": "neutral",
+        "displayName": "Quiet Ink",
+        "canonical": "#6c757d",
+        "tonalRamp": ["#1e2224", "#3a4146", "#6c757d", "#8b949c", "#a8b0b6", "#c5ccd2", "#e2e8ec", "#f4f6f7"]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#e1e5e9",
+        "tonalRamp": ["#6c757d", "#9aa3ab", "#c5c9ce", "#e1e5e9", "#eef1f4", "#f8f9fa", "#ffffff", "#ffffff"]
+      },
+      "inset-paper": {
+        "role": "neutral",
+        "displayName": "Inset Paper",
+        "canonical": "#f8f9fa",
+        "tonalRamp": ["#6c757d", "#9aa3ab", "#c5c9ce", "#e1e5e9", "#eef1f4", "#f8f9fa", "#fcfcfd", "#ffffff"]
+      },
+      "code-slate": {
+        "role": "neutral",
+        "displayName": "Code Slate",
+        "canonical": "#2d3748",
+        "tonalRamp": ["#12161c", "#1c222c", "#2d3748", "#4a5568", "#718096", "#a0aec0", "#e2e8f0", "#f7fafc"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Tool titles on the white sheet (2rem / 600)." },
+      "headline": { "displayName": "Headline", "purpose": "Product name in the rail." },
+      "title": { "displayName": "Title", "purpose": "Section headings inside a tool." },
+      "body": { "displayName": "Body", "purpose": "Descriptions and running UI copy." },
+      "label": { "displayName": "Label", "purpose": "Field labels, units, quiet metadata." }
+    },
+    "shadows": [
+      {
+        "name": "incidental-sheet",
+        "value": "0 4px 6px rgba(0, 0, 0, 0.1)",
+        "purpose": "Present on the tool sheet. Incidental, not an elevation system."
+      },
+      {
+        "name": "hover-nudge",
+        "value": "0 4px 8px rgba(0, 0, 0, 0.1)",
+        "purpose": "Format and link cards on hover, with a 2px lift."
+      },
+      {
+        "name": "focus-ring",
+        "value": "0 0 0 3px rgba(247, 127, 0, 0.1)",
+        "purpose": "Input and textarea focus halo in Safety Orange."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-standard",
+        "value": "all 0.3s ease",
+        "purpose": "Default state change on buttons, nav, inputs, and tiles."
+      },
+      {
+        "name": "ease-fast",
+        "value": "0.2s ease",
+        "purpose": "Small text controls (clear, quiet hover)."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "768px" },
+      { "name": "tablet", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Navy commit fill for downloads and primary actions.",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">Download</button>",
+      "css": ".ds-btn-primary { background: #003049; color: #ffffff; border: none; border-radius: 8px; padding: 0.75rem 1rem; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; } .ds-btn-primary:hover { background: #d62828; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1); }"
+    },
+    {
+      "name": "Copy Button",
+      "kind": "button",
+      "refersTo": "button-copy",
+      "description": "Safety Orange spark for copying CSS or values.",
+      "html": "<button class=\"ds-btn-copy\" type=\"button\">Copy CSS</button>",
+      "css": ".ds-btn-copy { background: #f77f00; color: #ffffff; border: none; border-radius: 6px; padding: 0.5rem 1rem; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: background-color 0.3s ease; } .ds-btn-copy:hover { background: #d62828; } .ds-btn-copy:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1); }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Navy-outline reset / secondary action on the white sheet.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Convert Another Image</button>",
+      "css": ".ds-btn-ghost { background: transparent; color: #003049; border: 2px solid #003049; border-radius: 8px; padding: 0.75rem 1.5rem; font-family: 'IBM Plex Sans', sans-serif; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; } .ds-btn-ghost:hover { background: #003049; color: #ffffff; } .ds-btn-ghost:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field, 2px hairline, orange focus halo.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Base Size (pixels)</span><input class=\"ds-input\" type=\"number\" value=\"16\"></label>",
+      "css": ".ds-field { display: flex; flex-direction: column; gap: 0.5rem; font-family: 'IBM Plex Sans', sans-serif; } .ds-field-label { font-weight: 500; font-size: 0.9rem; color: #2c3e50; } .ds-input { padding: 0.75rem; border: 2px solid #e1e5e9; border-radius: 8px; font-size: 1rem; font-family: inherit; color: #2c3e50; background: #ffffff; transition: all 0.3s ease; } .ds-input:hover { border-color: #fcbf49; } .ds-input:focus { outline: none; border-color: #f77f00; box-shadow: 0 0 0 3px rgba(247, 127, 0, 0.1); }"
+    },
+    {
+      "name": "Tool Sheet",
+      "kind": "card",
+      "refersTo": "card-tool",
+      "description": "White 12px sheet where a tool's interior lives.",
+      "html": "<section class=\"ds-tool\"><h2 class=\"ds-tool-title\">Pixel to Em Converter</h2><p class=\"ds-tool-desc\">Convert pixels to em units based on your base font size.</p></section>",
+      "css": ".ds-tool { background: #ffffff; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); font-family: 'IBM Plex Sans', sans-serif; color: #2c3e50; } .ds-tool-title { margin: 0 0 0.5rem; color: #003049; font-size: 2rem; font-weight: 600; line-height: 1.2; } .ds-tool-desc { margin: 0; color: #6c757d; font-size: 1.1rem; }"
+    },
+    {
+      "name": "Sidebar Nav",
+      "kind": "nav",
+      "refersTo": "nav-button",
+      "description": "Navy rail items; active is Signal Red with an orange leading bar.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-brand\">Web Dev Tools</div><button class=\"ds-nav-btn ds-nav-btn--active\" type=\"button\">Ratio Converter</button><button class=\"ds-nav-btn\" type=\"button\">Pixel to Em</button></nav>",
+      "css": ".ds-nav { background: #003049; color: #ffffff; padding: 2rem 0; width: 280px; font-family: 'IBM Plex Sans', sans-serif; } .ds-nav-brand { padding: 0 2rem; margin-bottom: 2rem; font-size: 1.5rem; font-weight: 600; color: #fcbf49; } .ds-nav-btn { display: block; width: 100%; padding: 1rem 2rem; background: none; border: none; color: #ffffff; text-align: left; cursor: pointer; font-size: 1rem; position: relative; transition: all 0.3s ease; } .ds-nav-btn:hover { background: rgba(255, 255, 255, 0.1); } .ds-nav-btn:focus-visible { outline: 2px solid #f77f00; outline-offset: -4px; } .ds-nav-btn--active { background: #d62828; } .ds-nav-btn--active::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #f77f00; }"
+    },
+    {
+      "name": "Category Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Flag Gold tag for link categories.",
+      "html": "<span class=\"ds-chip\">Design & Media</span>",
+      "css": ".ds-chip { display: inline-block; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; color: #f77f00; background: #fcbf49; padding: 0.25rem 0.5rem; border-radius: 4px; }"
+    },
+    {
+      "name": "Result Card",
+      "kind": "custom",
+      "refersTo": "result-primary",
+      "description": "Poster block for a numeric outcome. Fill is the point.",
+      "html": "<div class=\"ds-result\"><div class=\"ds-result-label\">Decimal Line Height</div><div class=\"ds-result-value\">1.5</div><div class=\"ds-result-desc\">Use this value in CSS</div></div>",
+      "css": ".ds-result { padding: 1.5rem; border-radius: 8px; text-align: center; background: #003049; color: #ffffff; font-family: 'IBM Plex Sans', sans-serif; } .ds-result-label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 0.5rem; } .ds-result-value { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; } .ds-result-desc { font-size: 0.8rem; opacity: 0.8; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Civic Sign Shop",
+    "overview": "This is a sign shop counter at work: dense, practical, slightly loud color, zero atmosphere for its own sake. The suite is a personal in-browser bench, and the chrome should read like wayfinding on a municipal poster — IBM Plex, flat fields, a handful of signal inks — not like a product dashboard.\n\nChart Navy is the chassis (rail, titles, primary fills). Chart Paper is the shop floor. The tool itself sits as a white sheet on that floor. Safety Orange, Signal Red, and Flag Gold are marks: focus, selection, and labels. They do not become moods or atmospheres.\n\nDepth is poster-flat. Color blocks do the layering. Any card shadow in the code is incidental and must not grow into a floating-card system.",
+    "keyCharacteristics": [
+      "One sans (IBM Plex Sans) for all UI; Mono only for values, CSS, and diffs",
+      "Navy chassis + cream floor + white sheet; signal colors as marks, never as page fills",
+      "Flat poster fields; shadows are leftovers, not the model",
+      "12px on the tool sheet, 8px on controls, 4px on chips",
+      "0.3s ease on state changes; no entrance choreography"
+    ],
+    "rules": [
+      { "name": "The Poster Field Rule", "body": "Chart Navy, Chart Paper, and white are the only full-field colors. Signal Red, Safety Orange, and Flag Gold are marks: they label, select, and focus. If a signal color owns more than a card or a control, it has escaped.", "section": "colors" },
+      { "name": "The One Spark Rule", "body": "Safety Orange is the focus/copy spark. It is not a hover fill (that is Signal Red) and not a title color on the cream floor (titles stay Chart Navy).", "section": "colors" },
+      { "name": "The One Voice Rule", "body": "IBM Plex Sans is the only UI face. Do not pair a serif or a second grotesque. Mono is reserved for copyable values.", "section": "typography" },
+      { "name": "The Fixed-Rem Rule", "body": "Type is stepped in rem (2 / 1.5 / 1.25 / 1 / 0.9). No fluid clamp() headings. Product UI is viewed at a desk, not as a marketing hero.", "section": "typography" },
+      { "name": "The Same-Sheet Rule", "body": "Switching tools must not invent a new page layout. The rail, the paper, and the white sheet stay; only the sheet’s interior changes.", "section": "layout" },
+      { "name": "The Color-Does-Depth Rule", "body": "If you need a layer, change the field (navy / paper / white / inset paper). Do not introduce glass, blur, or a shadow scale.", "section": "elevation" },
+      { "name": "The Sheet-Then-Control Rule", "body": "12px is the sheet. 8px is the control. Do not round the rail. Do not pill buttons.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do keep Chart Navy as the chassis and Chart Paper as the floor; put work on a white sheet.",
+      "Do use Safety Orange for focus and copy, Signal Red for selection and hover-commit, Flag Gold for the wordmark and chips.",
+      "Do set UI in IBM Plex Sans and copyable values in IBM Plex Mono, in rem steps.",
+      "Do use 12px on sheets, 8px on controls, 4px on chips.",
+      "Do let color fields do depth; treat existing card shadows as incidental."
+    ],
+    "donts": [
+      "Don't drift into SaaS: no glass, no purple-blue gradients, no Inter as display, no floating-card dashboards.",
+      "Don't introduce a second type family or a fluid display heading.",
+      "Don't fill large regions with Signal Red, Safety Orange, or Flag Gold.",
+      "Don't pill buttons or round the navy rail.",
+      "Don't build a shadow elevation scale; if a layer is needed, change the field color."
+    ]
+  }
+}
