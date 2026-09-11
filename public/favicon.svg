@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Web Dev Tools">
+  <!-- Chart Navy chassis -->
+  <rect width="32" height="32" fill="#003049"/>
+  <!-- Safety Orange tick, navy gutter -->
+  <rect width="3.5" height="32" fill="#f77f00"/>
+  <!-- Chart Paper sheet, docked, 12px-scale corners on the free edge -->
+  <path fill="#f8e7c1" d="M9 5h16.5a3 3 0 0 1 3 3v16a3 3 0 0 1-3 3H9V5z"/>
+</svg>
